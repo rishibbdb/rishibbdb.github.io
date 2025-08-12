@@ -12,45 +12,27 @@
   "social_links": [
     {
       "label": "Personal Website",
-      "url": "https://sample.com",
+      "url": "https://rishibbdb.github.io",
       "svg_path": "img/globe.svg"
     },
     {
-      "label": "First Social",
-      "url": "https://sample.com",
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/rbabu95/",
       "svg_path": "img/linkedin.svg"
-    },
-    {
-      "label": "Second Social",
-      "url": "https://sample.com",
-      "svg_path": "img/github.svg"
     }
   ],
   "work_experience": [
     {
-      "company": "Latest Job",
-      "position": "Position One",
-      "url": "https://sample.com",
-      "start_date": "01/01/2020",
+      "company": "Michigan State University",
+      "position": "Postdoctoral Research Fellow",
+      "url": "https://directory.natsci.msu.edu/Directory/Profiles/Person/104480",
+      "start_date": "02/28/2024",
       "end_date": "Present",
       "summary": "Short summary about present job and what the position entails",
       "highlights": [
         "First Duty of Current Job",
         "Second Duty of Current Job",
         "Third Duty of Current Job"
-      ]
-    },
-    {
-      "company": "Previous Job",
-      "position": "Position Two",
-      "url": "https://sample.com",
-      "start_date": "01/01/2010",
-      "end_date": "01/01/2020",
-      "summary": "Short summary about previous job and what that position entailed",
-      "highlights": [
-        "First Duty of Previous Job",
-        "Second Duty of Previous Job",
-        "Third Duty of Previous Job"
       ]
     }
   ],
@@ -134,27 +116,30 @@
   ],
   "education": [
     {
-      "institution": "Institution One",
-      "location": "Institution One Location",
-      "url": "https://sample.com",
+      "institution": "Michigan Technological University",
+      "location": "Houghton, MI",
       "degrees": [
-        "Master of Science in Computer Science",
-        "Minor in Mathematics"
+        "Doctor of Philosophy in Physics"
       ],
-      "honors": ["Outstanding Student Award", "Dean's List"],
-      "gpa_cumulative": "3.5",
-      "gpa_major": "4.0",
-      "graduation_date": "01/01/2005"
+      "honors": ["Henes Graduate Research Fellow", "Dean’s Award for Outstanding Scholarship", "Outstanding Graduate Teaching Award"],
+      "graduation_date": "02/14/2024"
     },
     {
-      "institution": "Institution Two",
-      "location": "Institution Two Location",
-      "url": "https://sample.com",
-      "degrees": ["Bachelor of Science in Physics"],
-      "honors": ["Scholarship Recipient"],
-      "gpa_cumulative": "3.2",
-      "gpa_major": "3.9",
-      "graduation_date": "01/01/2000"
+      "institution": "Michigan Technological University",
+      "location": "Houghton, MI",
+      "degrees": [
+        "Master of Science in Physics"
+      ],
+      "honors": ["Recognition for Exceptional Teaching by the Provost"],
+      "gpa_cumulative": "3.5",
+      "graduation_date": "05/01/2021"
+    },
+    {
+      "institution": "National Institute of Technology",
+      "location": "Calicut, India",
+      "degrees": ["Bachelor of Technology in Engineering Physics"],
+      "gpa_cumulative": "3.4",
+      "graduation_date": "05/01/2017"
     }
   ],
   "skills": [
