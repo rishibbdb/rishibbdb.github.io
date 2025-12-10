@@ -28,29 +28,16 @@
   ],
   "work_experience": [
     {
-      "company": "Latest Job",
-      "position": "Position One",
-      "url": "https://sample.com",
-      "start_date": "01/01/2020",
+      "company": "Michigan State University",
+      "position": "Postdoctoral Scholar",
+      "url": "https://directory.natsci.msu.edu/Directory/Profiles/Person/104480",
+      "start_date": "03/01/2024",
       "end_date": "Present",
-      "summary": "Short summary about present job and what the position entails",
+      "summary": "Postdoctoral Researcher working on the High Altitude Water Cherenkov (HAWC) and IceCube Neutrino Observatory experiments. My work focuses on data analysis, simulation, and reconstruction to enhance our understanding of high-energy astrophysical phenomena. I'm the Data Analysis and Software coordinator and lead of the public data release task force for the HAWC Collaboration and I lead the technical and software developement group at HAWC. I work with multi-messenger analysis of neutrino and gamma-ray data in search for unique astrophysical systems and develop Neural Network (NN) based reconstruction algorithms for reconstructing raw data from both observatories for high level data analysis. I also supervise graduate and undergraduate students in the data analysis and machine learning projects.",
       "highlights": [
         "First Duty of Current Job",
         "Second Duty of Current Job",
         "Third Duty of Current Job"
-      ]
-    },
-    {
-      "company": "Previous Job",
-      "position": "Position Two",
-      "url": "https://sample.com",
-      "start_date": "01/01/2010",
-      "end_date": "01/01/2020",
-      "summary": "Short summary about previous job and what that position entailed",
-      "highlights": [
-        "First Duty of Previous Job",
-        "Second Duty of Previous Job",
-        "Third Duty of Previous Job"
       ]
     }
   ],

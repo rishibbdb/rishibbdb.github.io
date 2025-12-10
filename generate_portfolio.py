@@ -26,9 +26,6 @@ resume_template = env.get_template("resume_template.html")
 html_output = index_template.render(**data)
 resume_output = resume_template.render(**data)
 
-# This is equivalent to...
-# html_output = index_template.render(name=data["name"], label=data["label"]...)
-# resume_output = resume_template.render(name=data["name"], label=data["label"]...)
 
 # Write the output to an HTML file
 with Path("index.html").open("w", encoding="utf-8") as f:
