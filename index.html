@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dr. Rishi Babu — Astrophysicist</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-96x96.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <meta property="og:title" content="Dr. Rishi Babu — Astrophysicist" />
   <meta property="og:description" content="Postdoctoral Researcher at Michigan State University. High-energy astrophysics, multi-messenger astronomy, and machine learning." />
   <meta property="og:image" content="https://rishibbdb.github.io/images/ProfilePic.jpeg" />
@@ -111,7 +114,102 @@
       color: var(--text);
       background: rgba(123,159,255,0.1);
     }
+    /* ── PLOT THUMBNAILS ── */
+    .role-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--amber);
+      border: 1px solid rgba(255,179,71,0.3);
+      border-radius: 3px;
+      padding: 0.15rem 0.45rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+    .code-plots {
+      display: flex;
+      gap: 0.6rem;
+      margin: 1rem 0 0.2rem;
+      flex-wrap: wrap;
+    }
+    .plot-thumb {
+      width: 120px;
+      flex-shrink: 0;
+      cursor: pointer;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .plot-thumb:hover {
+      border-color: var(--blue);
+      transform: translateY(-2px);
+    }
+    .plot-thumb img {
+      width: 100%; height: 80px;
+      object-fit: cover;
+      display: block;
+    }
+    .plot-caption {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      padding: 0.3rem 0.4rem;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    #lightbox.open { display: flex; }
+    .lb-inner {
+      position: relative;
+      max-width: 900px;
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    #lb-img {
+      width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      display: block;
+      background: var(--bg3);
+    }
+    #lb-caption {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 0.75rem 1rem;
+      letter-spacing: 0.06em;
+    }
+    .lb-close {
+      position: absolute; top: 0.6rem; right: 0.75rem;
+      background: none; border: none;
+      color: var(--muted); font-size: 1.1rem;
+      cursor: pointer; z-index: 2;
+      transition: color 0.2s;
+    }
+    .lb-close:hover { color: var(--text); }
+
+    @media (max-width: 768px) {
+      .plot-thumb { width: calc(33% - 0.5rem); }
+      .plot-thumb img { height: 65px; }
+    }
     /* ── HERO ── */
     #home {
       position: relative;
@@ -612,10 +710,11 @@
     <h1>Dr. <span>Rishi Babu</span></h1>
     <p class="hero-sub">
       Postdoctoral Researcher · <strong>Michigan State University</strong><br>
-      Trying to understand the most energetic phenomena in the universe, one source at a time.
+      Trying to understand the most energetic phenomena in the universe, one theory at a time, one object at a time and one code at a time. 
     </p>
     <div class="hero-cta">
       <a href="#publications" class="btn btn-primary">View Publications</a>
+      <a href="https://scholar.google.com/citations?user=oljy-gEAAAAJ&hl=en&authuser=1" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">Google Scholar</a>
       <a href="docs/CV.pdf" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">CV</a>
       <a href="#about" class="btn btn-ghost">About Me</a>
     </div>
@@ -836,50 +935,113 @@
   <p class="section-label reveal">Open Source</p>
   <h2 class="reveal reveal-delay-1">Codes & Software</h2>
   <div class="section-divider reveal reveal-delay-2"></div>
-  <p class="section-intro reveal reveal-delay-2">Public repositories and tools developed for astrophysics data analysis.</p>
+  <p class="section-intro reveal reveal-delay-2">I currently serve as the Data and Algorithms Working Group Leader and the Public Data Release Lead for the HAWC Collaboration. I usually make really cool scripts for visualization and analysis purposes used widely by other people. The following are a list of few of the public repositories and tools I developed for astrophysics data analysis. For more cool repositories, please visit my <a href="https://github.com/rishibbdb" class="pub-link">GitHub profile</a>.</p>
+
   <div class="code-list">
+
+    <!-- astromodels -->
     <div class="code-card reveal">
-      <div class="code-icon">🧠</div>
       <div class="code-body">
-        <h3>[repo-name]</h3>
-        <p>Hybrid GNN + PCA classifier for tau/electron neutrino discrimination in IceCube events. Includes SHAP-based feature importance analysis.</p>
+        <h3>astromodels <span class="role-tag">Developer</span></h3>
+        <p>Astromodels is a flexible framework to define models for likelihood or Bayesian analysis of astrophysical data. I develop spatial morphology models and templates used for likelihood analysis (See Hermes Diffuse Emission Models). </p>
         <div class="code-pills">
-          <span class="pill">Python</span><span class="pill">PyTorch</span><span class="pill">Graph Neural Network</span>
+          <span class="pill">Python</span><span class="pill">Jupyter</span>
+        </div>
+        <div class="code-plots">
+          <div class="plot-thumb" onclick="openLightbox('images/astromodels_1.png', 'Symmetric Extended Gaussian Model')">
+            <img src="images/astromodels_1.png" alt="Symmetric Extended Gaussian Model" />
+            <div class="plot-caption">Symmetric Extended Gaussian Model</div>
+          </div>
+          <div class="plot-thumb" onclick="openLightbox('images/astromodels_2.jpg', 'Diffuse Emission Template based on HERMES Model')">
+            <img src="images/astromodels_2.jpg" alt="Diffuse Emission Template based on HERMES Model" />
+            <div class="plot-caption">Diffuse Emission Template based on HERMES Model</div>
+          </div>
         </div>
         <div class="code-links">
-          <a href="#" class="pub-link">GitHub</a>
-          <a href="#" class="pub-link">Docs</a>
+          <a href="https://github.com/threeML/astromodels" class="pub-link">GitHub</a>
+          <a href="https://astromodels.readthedocs.io/en/latest/" class="pub-link">Docs</a>
         </div>
       </div>
     </div>
+
+    <!-- I3-TrackPDFReco -->
     <div class="code-card reveal reveal-delay-1">
-      <div class="code-icon">⚙️</div>
       <div class="code-body">
-        <h3>[repo-name]</h3>
-        <p>JAX-based neutrino event reconstruction pipeline (TPN). Optimized for GPU-parallel batch inference on H200 nodes.</p>
+        <h3>I3-TrackPDFReco <span class="role-tag">Developer</span></h3>
+        <p>JAX+TensorFlow based neutrino track event reconstruction pipeline. Optimized for GPU-parallel batch inference on NVIDIA H200 nodes.</p>
         <div class="code-pills">
           <span class="pill">Python</span><span class="pill">JAX</span><span class="pill">GPU</span>
         </div>
-        <div class="code-links"><a href="#" class="pub-link">GitHub</a></div>
-      </div>
-    </div>
-    <div class="code-card reveal reveal-delay-2">
-      <div class="code-icon">📡</div>
-      <div class="code-body">
-        <h3>[repo-name]</h3>
-        <p>Multi-messenger source correlation pipeline for HAWC gamma-ray maps and IceCube neutrino event lists.</p>
-        <div class="code-pills">
-          <span class="pill">Python</span><span class="pill">Astropy</span><span class="pill">HEALPix</span>
+        <div class="code-plots">
+          <div class="plot-thumb" onclick="openLightbox('images/track.png', 'IceCube Track Event')">
+            <img src="images/track.png" alt="IceCube Track Event" />
+            <div class="plot-caption">IceCube Track Event</div>
+          </div>
+          <div class="plot-thumb" onclick="openLightbox('images/reco.png', 'Reconstructed Track Direction Likelihood Scan')">
+            <img src="images/reco.png" alt="Reconstruction performance" />
+            <div class="plot-caption">Reconstructed Track Direction Likelihood Scan</div>
+          </div>
         </div>
         <div class="code-links">
-          <a href="#" class="pub-link">GitHub</a>
-          <a href="#" class="pub-link">arXiv</a>
+          <a href="https://github.com/rishibbdb/I3-TrackPDFReco" class="pub-link">GitHub</a>
         </div>
       </div>
     </div>
+
+    <!-- WFS Source Detector -->
+    <div class="code-card reveal reveal-delay-2">
+      <div class="code-body">
+        <h3>WFS Source Seed Detector <span class="role-tag">Developer</span></h3>
+        <p>Pipeline for automated detection and analysis of gamma-ray sources using image processing techniques applied to HAWC data. Performs blob detection, filtering, and generates source seeds for likelihood fitting.</p>
+        <div class="code-pills">
+          <span class="pill">Python</span><span class="pill">Astropy</span><span class="pill">HEALPix</span><span class="pill">scikit-image</span>
+        </div>
+        <div class="code-plots">
+          <div class="plot-thumb" onclick="openLightbox('images/drip1.png', 'Simulated sky map with injected sources')">
+            <img src="images/drip1.png" alt="Sky map" />
+            <div class="plot-caption">Simulated sky map with injected sources</div>
+          </div>
+          <div class="plot-thumb" onclick="openLightbox('images/drip2.png', 'Simulated sky map with detected blobs')">
+            <img src="images/drip2.png" alt="Blob detection" />
+            <div class="plot-caption">Simulated sky map with detected blobs</div>
+          </div>
+          <div class="plot-thumb" onclick="openLightbox('images/drip3.png', 'Application to H.E.S.S. Galactic Plane Survey data')">
+            <img src="images/drip3.png" alt="Source seeds" />
+            <div class="plot-caption">Application to H.E.S.S. Galactic Plane Survey data</div>
+          </div>
+        </div>
+        <div class="code-links">
+          <a href="https://github.com/rishibbdb/WFS-Source-Detector" class="pub-link">GitHub</a>
+          <a href="https://arxiv.org/pdf/2507.10307" class="pub-link">arXiv</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HAWC Data Release -->
+    <div class="code-card reveal reveal-delay-3">
+      <div class="code-body">
+        <h3>HAWC Data Release Products <span class="role-tag">Lead Developer</span></h3>
+        <p>Lead developer and maintainer of the HAWC gamma-ray observatory public data release products. This is repo serves as the central repository for all HAWC data release products, analysis tools, and documentation. The data release date is expected to be in September 2026, when the full dataset will be available for public access.</p>
+        <div class="code-pills">
+          <span class="pill">C++</span><span class="pill">Python</span><span class="pill">Astropy</span><span class="pill">HEALPix</span><span class="pill">3ML</span>
+        </div>
+        <div class="code-links">
+          <a href="https://github.com/HAWC-Data-Release" class="pub-link">GitHub</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
+<!-- ── LIGHTBOX ── -->
+<div id="lightbox" onclick="closeLightbox()">
+  <div class="lb-inner" onclick="event.stopPropagation()">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <img id="lb-img" src="" alt="" />
+    <p id="lb-caption"></p>
+  </div>
+</div>
 <div class="sep"></div>
 
 <!-- ── ABOUT ── -->
@@ -900,14 +1062,15 @@
       <p class="section-label reveal">About</p>
       <h2 class="reveal reveal-delay-1">Hello, I'm<br><span style="color:var(--blue)">Rishi Babu</span></h2>
       <div class="section-divider reveal reveal-delay-2"></div>
-      <p class="reveal reveal-delay-2">[Short bio — e.g. I am a postdoctoral researcher in high-energy astrophysics at Michigan State University, studying the most energetic phenomena in the universe — from neutron-star X-ray binaries as cosmic-ray accelerators to high-energy neutrino emission detected by IceCube.]</p>
-      <p class="reveal reveal-delay-3">[Second paragraph — e.g. My work sits at the intersection of multi-messenger astronomy and machine learning. I develop novel reconstruction algorithms and source identification pipelines, combining gamma-ray, neutrino, and X-ray observations to uncover hadronic acceleration mechanisms.]</p>
-      <p class="reveal reveal-delay-4">[Third paragraph — e.g. Outside of research, I'm passionate about science communication and mentoring early-career researchers.]</p>
+      <p class="reveal reveal-delay-2">I am a postdoctoral researcher in high-energy astrophysics at Michigan State University, studying the most energetic phenomena in the universe — from neutron-star X-ray binaries as cosmic-ray accelerators to high-energy neutrino emission detected by IceCube.</p>
+      <p class="reveal reveal-delay-3">My work sits at the intersection of multi-messenger astronomy and machine learning. I develop novel reconstruction algorithms and source identification pipelines, combining gamma-ray, neutrino, and X-ray observations to uncover hadronic acceleration mechanisms.</p>
+      <p class="reveal reveal-delay-4">Outside of research, I'm passionate about science communication and mentoring early-career researchers. I'm married to wonderful lady Adarsha who is keeping me grounded and motivated to pursue my goals.</p>
       <div class="affil-list reveal reveal-delay-4">
         <div class="affil-item"><div class="affil-dot"></div><span>Postdoctoral Researcher · Michigan State University</span></div>
         <div class="affil-item"><div class="affil-dot"></div><span>HAWC Collaboration · IceCube Collaboration</span></div>
-        <div class="affil-item"><div class="affil-dot"></div><span>Ph.D., [Field] · [University], [Year]</span></div>
-        <div class="affil-item"><div class="affil-dot"></div><span>B.Sc., [Field] · [University], [Year]</span></div>
+        <div class="affil-item"><div class="affil-dot"></div><span>Ph.D., Physics · Michigan Technological University, 2024</span></div>
+        <div class="affil-item"><div class="affil-dot"></div><span>MS., Physics · Michigan Technological University, 2021</span></div>
+        <div class="affil-item"><div class="affil-dot"></div><span>B.Tech., Engineering Physics · National Institute of Technology, Calicut, 2017</span></div>
       </div>
     </div>
   </div>
@@ -1005,6 +1168,19 @@ const secObs = new IntersectionObserver((entries) => {
   });
 }, { rootMargin: '-40% 0px -55% 0px' });
 document.querySelectorAll('section[id]').forEach(s => secObs.observe(s));
+
+/* ─── Lightbox ─── */
+function openLightbox(src, caption) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-caption').textContent = caption;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
 </body>
 </html>
