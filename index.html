@@ -1,537 +1,913 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. [Your Name] — Astrophysicist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <!-- Site Info -->
-    <title>Rishi Babu - Portfolio</title>
-    <meta name="description" content="Rishi Babu - A short summary of who you are, your background, experience, and interests to give visitors a quick introduction to you.">
-    <meta name="author" content="Rishi Babu">
+    :root {
+      --bg:        #080C14;
+      --bg2:       #0D1220;
+      --bg3:       #111827;
+      --blue:      #7B9FFF;
+      --blue-dim:  #3D5FA0;
+      --amber:     #FFB347;
+      --text:      #E2E8F0;
+      --muted:     #8A97B0;
+      --border:    rgba(123,159,255,0.15);
+      --nav-h:     64px;
+    }
 
-    <!-- Open Graph Tags: The title of the page for social media sharing. It can match the title tag or be more descriptive. -->
-    <meta property="og:title" content="Rishi Babu">
+    html { scroll-behavior: smooth; }
 
-    <!-- Open Graph Tags: Typically set to "website" for static sites or "article" for content-heavy pages. -->
-    <meta property="og:type" content="website">
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-    <!-- Open Graph Tags: The URL of the page, used to ensure link previews resolve to the correct page. -->
-    <meta property="og:url" content="https://rishibbdb.github.io/portfolio/index.html">
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
+      background: rgba(8,12,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--blue);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.4rem 0.85rem;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text);
+      background: rgba(123,159,255,0.1);
+    }
 
-    <!-- Open Graph Tags: URL of an image that represents the page. Useful for link previews. -->
-    <meta property="og:image" content="https://rishibbdb.github.io/portfolio/img/default-image.png">
+    /* ── HERO ── */
+    #home {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    #star-canvas {
+      position: absolute; inset: 0;
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      max-width: 820px;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      border: 1px solid rgba(255,179,71,0.35);
+      border-radius: 2px;
+      padding: 0.3rem 0.8rem;
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s ease forwards;
+    }
+    .hero-avatar {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--blue-dim);
+      box-shadow: 0 0 40px rgba(123,159,255,0.25);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s ease forwards;
+      background: var(--bg3);
+    }
+    .hero-avatar-placeholder {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 3px solid var(--blue-dim);
+      box-shadow: 0 0 40px rgba(123,159,255,0.25);
+      margin: 0 auto 1.8rem;
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s ease forwards;
+    }
+    .hero-avatar-placeholder svg { opacity: 0.3; }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #fff;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.55s ease forwards;
+    }
+    h1 span { color: var(--blue); }
+    .hero-sub {
+      margin-top: 1rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s ease forwards;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 500; }
+    .hero-cta {
+      margin-top: 2.2rem;
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.85s ease forwards;
+    }
+    .btn {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.6rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: var(--bg);
+    }
+    .btn-primary:hover { background: #9ab5ff; transform: translateY(-1px); }
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: var(--muted); font-size: 0.72rem;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1s 1.4s ease forwards;
+    }
+    .scroll-arrow { animation: bounce 1.6s infinite; }
 
-    <!-- Open Graph Tags: Provides an alternative text for the image to improve accessibility. -->
-    <meta property="og:image:alt" content="Rishi Babu Profile Image">
+    /* ── SECTIONS ── */
+    section { padding: 7rem 2.5rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .section-divider {
+      width: 48px; height: 2px;
+      background: linear-gradient(90deg, var(--blue), transparent);
+      margin-bottom: 2.5rem;
+    }
+    .section-intro {
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      margin-bottom: 3rem;
+    }
 
-    <!-- Preconnect for Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    /* reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
 
-    <!-- Custom Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
-          rel="stylesheet">
+    /* ── RESEARCH ── */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .research-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .research-card:hover { border-color: var(--blue-dim); transform: translateY(-3px); }
+    .research-icon {
+      width: 42px; height: 42px;
+      background: rgba(123,159,255,0.1);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    .research-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .research-card p { color: var(--muted); font-size: 0.92rem; }
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/modern_normalize.css" />
-    <link rel="stylesheet" href="css/html5bp.css">
-    <link rel="stylesheet" href="css/main.css">
+    /* ── PUBLICATIONS ── */
+    .pub-list { display: flex; flex-direction: column; gap: 1.2rem; }
+    .pub-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue-dim);
+      border-radius: 0 8px 8px 0;
+      padding: 1.4rem 1.6rem;
+      transition: border-left-color 0.2s;
+    }
+    .pub-item:hover { border-left-color: var(--blue); }
+    .pub-meta {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+    .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+    }
+    .tag-year { background: rgba(123,159,255,0.12); color: var(--blue); }
+    .tag-journal { background: rgba(255,179,71,0.1); color: var(--amber); }
+    .tag-first { background: rgba(100,220,120,0.1); color: #6fdc88; }
+    .pub-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+    .pub-authors { color: var(--muted); font-size: 0.88rem; }
+    .pub-authors em { color: var(--text); font-style: normal; }
+    .pub-links { margin-top: 0.8rem; display: flex; gap: 0.75rem; }
+    .pub-link {
+      font-size: 0.8rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--blue);
+      text-decoration: none;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid rgba(123,159,255,0.3);
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+    .pub-link:hover { background: rgba(123,159,255,0.1); }
 
-    <!-- Set a theme color that matches your website's primary color -->
-    <meta name="theme-color" content="#fafafa">
+    /* ── PRESENTATIONS ── */
+    .pres-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .pres-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .pres-card:hover { transform: translateY(-3px); border-color: var(--blue-dim); }
+    .pres-thumb {
+      width: 100%; height: 160px;
+      object-fit: cover;
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.82rem;
+      font-family: 'Space Mono', monospace;
+    }
+    .pres-body { padding: 1.2rem; }
+    .pres-body h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--text);
+    }
+    .pres-body p { color: var(--muted); font-size: 0.85rem; }
+    .pres-type {
+      margin-top: 0.7rem;
+      font-size: 0.75rem;
+      font-family: 'Space Mono', monospace;
+      color: var(--amber);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
 
-    <!-- Favicon for all browsers -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    /* ── OUTREACH ── */
+    .outreach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .outreach-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg2);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .outreach-card:hover { transform: translateY(-3px); border-color: var(--blue-dim); }
+    .outreach-img {
+      width: 100%; height: 180px;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--bg3), #151e35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+    .outreach-body { padding: 1.3rem; }
+    .outreach-body h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+    .outreach-body p { color: var(--muted); font-size: 0.88rem; }
 
-    <!-- Apple touch icon for iOS devices -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/icon.png">
+    /* ── CODES ── */
+    .code-list { display: flex; flex-direction: column; gap: 1rem; }
+    .code-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem 1.8rem;
+      display: flex; align-items: flex-start; gap: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .code-card:hover { border-color: var(--blue-dim); }
+    .code-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+    .code-body { flex: 1; }
+    .code-body h3 {
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--blue);
+      margin-bottom: 0.3rem;
+    }
+    .code-body p { color: var(--muted); font-size: 0.9rem; }
+    .code-pills {
+      margin-top: 0.7rem;
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      background: rgba(123,159,255,0.08);
+      color: var(--blue);
+      border: 1px solid rgba(123,159,255,0.2);
+    }
+    .code-links { display: flex; gap: 0.6rem; margin-top: 1rem; }
 
-    <!-- Web app manifest for Progressive Web Apps -->
-    <link rel="manifest" href="/site.webmanifest">
+    /* ── ABOUT ── */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-photo {
+      position: sticky; top: 100px;
+    }
+    .about-photo-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      padding: 1rem;
+    }
+    .about-photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .about-links { margin-top: 1.2rem; display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .about-content h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .about-content p { color: var(--muted); margin-bottom: 1rem; font-size: 0.97rem; }
+    .affil-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .affil-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .affil-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex-shrink: 0;
+    }
 
-    <!-- Content Security Policy: Uncomment to enhance security by restricting where content can be loaded from (useful for preventing certain attacks like XSS). Update if adding external sources (e.g., Google Fonts, Bootstrap CDN, analytics, etc). -->
-    <!-- <meta http-equiv="Content-Security-Policy" content=" default-src 'self'; script-src 'self' code.jquery.com; style-src 'self' fonts.googleapis.com; font-src fonts.gstatic.com; img-src 'self' images.examplecdn.com; "> -->
-  </head>
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-family: 'Space Mono', monospace;
+    }
+    footer a { color: var(--blue); text-decoration: none; }
 
-  <body>
-    <header class="page-header">
-      <div class="container">
-        <div class="header-top flex-responsive">
-          
-            <img class="header-image"
-                 width="256"
-                 height="256"
-                 src="img/default-image.png"
-                 alt="Rishi Babu Profile Image" />
-          
-          <div class="header-info">
-            <h1>Rishi Babu</h1>
-            <h2 class="header-label">PostDoctoral Research Associate</h2>
-            
-              <address>
-                <ul class="inline-list flex-responsive">
-                  
-                    <li>
-                      <a href="mailto:baburish@msu.edu">baburish@msu.edu</a>
-                    </li>
-                  
-                  
-                    <li>
-                      <a href="tel:+9063709156">906-370-9156</a>
-                    </li>
-                  
-                  <li>Lansing, MI</li>
-                </ul>
-              </address>
-            
-            
-              <ul class="inline-list flex-responsive">
-                
-                  <li>
-                    <a href="https://sample.com"
-                       rel="noopener noreferrer"
-                       aria-label="Personal Website"
-                       class="link-with-icon">
-                      <svg aria-hidden="true"
-     xmlns="http://www.w3.org/2000/svg"
-     role="img"
-     width="16"
-     height="16"
-     fill="currentColor"
-     class="bi bi-globe-americas"
-     viewBox="0 0 16 16">
-  <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484q-.121.12-.242.234c-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z" />
-</svg>
+    /* ── SECTION SEPARATOR ── */
+    .sep {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 2.5rem;
+      max-width: 1100px;
+    }
 
-                      Personal Website
-                    </a>
-                  </li>
-                
-                  <li>
-                    <a href="https://sample.com"
-                       rel="noopener noreferrer"
-                       aria-label="First Social"
-                       class="link-with-icon">
-                      <svg aria-hidden="true"
-     xmlns="http://www.w3.org/2000/svg"
-     role="img"
-     width="16"
-     height="16"
-     fill="currentColor"
-     class="bi bi-linkedin"
-     viewBox="0 0 16 16">
-  <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
-</svg>
+    /* ── KEYFRAMES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
 
-                      First Social
-                    </a>
-                  </li>
-                
-                  <li>
-                    <a href="https://sample.com"
-                       rel="noopener noreferrer"
-                       aria-label="Second Social"
-                       class="link-with-icon">
-                      <svg aria-hidden="true"
-     xmlns="http://www.w3.org/2000/svg"
-     role="img"
-     width="16"
-     height="16"
-     fill="currentColor"
-     class="bi bi-github"
-     viewBox="0 0 16 16">
-  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
-</svg>
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links a { font-size: 0.72rem; padding: 0.35rem 0.55rem; letter-spacing: 0.04em; }
+      section { padding: 5rem 1.2rem; }
+      .about-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .about-photo { position: static; }
+    }
 
-                      Second Social
-                    </a>
-                  </li>
-                
-              </ul>
-            
-            <p class="header-summary">A short summary of who you are, your background, experience, and interests to give visitors a quick introduction to you.</p>
-          </div>
-        </div>
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      canvas { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a class="nav-logo" href="#home">Dr. [Your Name]</a>
+  <ul class="nav-links">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#presentations">Talks</a></li>
+    <li><a href="#outreach">Outreach</a></li>
+    <li><a href="#codes">Codes</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="home">
+  <canvas id="star-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-badge">High-Energy Astrophysics &nbsp;·&nbsp; Multi-Messenger Astronomy</div>
+    <div class="hero-avatar-placeholder">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+    </div>
+    <h1>Dr. <span>[Your Name]</span></h1>
+    <p class="hero-sub">
+      Postdoctoral Researcher · <strong>[Your Institution]</strong><br>
+      Unraveling the universe's most energetic messengers — cosmic rays, neutrinos, and gamma-ray sources.
+    </p>
+    <div class="hero-cta">
+      <a href="#publications" class="btn btn-primary">View Publications</a>
+      <a href="#about" class="btn btn-ghost">About Me</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <svg class="scroll-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- ── RESEARCH INTERESTS ── -->
+<section id="research" style="padding-top: 6rem;">
+  <p class="section-label reveal">Research</p>
+  <h2 class="reveal reveal-delay-1">Research Interests</h2>
+  <div class="section-divider reveal reveal-delay-2"></div>
+  <div class="research-grid">
+    <div class="research-card reveal reveal-delay-1">
+      <div class="research-icon">⚡</div>
+      <h3>PeVatron Sources</h3>
+      <p>Searching for hadronic accelerators capable of producing cosmic rays beyond the PeV scale, using multi-wavelength and multi-messenger observations.</p>
+    </div>
+    <div class="research-card reveal reveal-delay-2">
+      <div class="research-icon">🔭</div>
+      <h3>Gamma-Ray Astronomy</h3>
+      <p>Analyzing TeV gamma-ray data from HAWC and H.E.S.S. to characterize extended emission and constrain source morphology near LMXBs and SNRs.</p>
+    </div>
+    <div class="research-card reveal reveal-delay-3">
+      <div class="research-icon">☄️</div>
+      <h3>Neutrino Physics</h3>
+      <p>Developing reconstruction and classification algorithms for IceCube neutrino events, targeting astrophysical source associations.</p>
+    </div>
+    <div class="research-card reveal reveal-delay-4">
+      <div class="research-icon">🤖</div>
+      <h3>Machine Learning Methods</h3>
+      <p>Building hybrid GNN and deep learning pipelines for event reconstruction, particle identification, and source classification in high-energy detectors.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ── PUBLICATIONS ── -->
+<section id="publications">
+  <p class="section-label reveal">Output</p>
+  <h2 class="reveal reveal-delay-1">Publications</h2>
+  <div class="section-divider reveal reveal-delay-2"></div>
+  <p class="section-intro reveal reveal-delay-2">Peer-reviewed articles, preprints, and conference proceedings. Full list on <a href="https://arxiv.org" style="color:var(--blue)">arXiv</a> and <a href="https://ui.adsabs.harvard.edu" style="color:var(--blue)">NASA/ADS</a>.</p>
+
+  <div class="pub-list">
+    <div class="pub-item reveal">
+      <div class="pub-meta">
+        <span class="tag tag-year">2025</span>
+        <span class="tag tag-journal">ApJ Letters</span>
+        <span class="tag tag-first">First Author</span>
       </div>
-    </header>
-
-    <div class="page-content">
-      <div class="container">
-        <main>
-          
-            <section>
-              <h2 class="section-heading">Work Experience</h2>
-              
-                <section>
-                  <h3>
-                    
-                      Postdoctoral Scholar at <a href="https://directory.natsci.msu.edu/Directory/Profiles/Person/104480">Michigan State University</a>
-                    
-                  </h3>
-                  
-                    <p class="section-label">03/01/2024 - Present</p>
-                  
-                  <p>Postdoctoral Researcher working on the High Altitude Water Cherenkov (HAWC) and IceCube Neutrino Observatory experiments. My work focuses on data analysis, simulation, and reconstruction to enhance our understanding of high-energy astrophysical phenomena. I&#39;m the Data Analysis and Software coordinator and lead of the public data release task force for the HAWC Collaboration and I lead the technical and software developement group at HAWC. I work with multi-messenger analysis of neutrino and gamma-ray data in search for unique astrophysical systems and develop Neural Network (NN) based reconstruction algorithms for reconstructing raw data from both observatories for high level data analysis. I also supervise graduate and undergraduate students in the data analysis and machine learning projects.</p>
-                  
-                    <ul>
-                      <li>First Duty of Current Job</li><li>Second Duty of Current Job</li><li>Third Duty of Current Job</li>
-                    </ul>
-                  
-                </section>
-              
-            </section>
-          
-
-          
-            <section>
-              <h2 class="section-heading">Projects</h2>
-              
-                <section>
-                  <h3>
-                    
-                      <a href="https://sample.com">My First Project</a>
-                    
-                  </h3>
-                  <p>Short summary about my first project</p>
-                  
-                    <ul>
-                      <li>First Highlight of Project One</li><li>Second Highlight of Project One</li><li>Third Highlight of Project One</li>
-                    </ul>
-                  
-                  
-                    <div class="gallery main-gallery">
-                      
-                        <figure>
-                          <img width="600"
-                               height="338"
-                               src="https://picsum.photos/600/338?random=1"
-                               alt="Image Caption 1">
-                          <figcaption>Image Caption 1</figcaption>
-                        </figure>
-                      
-                        <figure>
-                          <img width="600"
-                               height="338"
-                               src="https://picsum.photos/600/338?random=2"
-                               alt="Image Caption 2">
-                          <figcaption>Image Caption 2</figcaption>
-                        </figure>
-                      
-                        <figure>
-                          <img width="600"
-                               height="338"
-                               src="https://picsum.photos/600/338?random=3"
-                               alt="Image Caption 3">
-                          <figcaption>Image Caption 3</figcaption>
-                        </figure>
-                      
-                    </div>
-                  
-                </section>
-              
-                <section>
-                  <h3>
-                    
-                      <a href="https://sample.com">My Second Project</a>
-                    
-                  </h3>
-                  <p>Short summary about my second project</p>
-                  
-                    <ul>
-                      <li>First Highlight of Project Two</li><li>Second Highlight of Project Two</li><li>Third Highlight of Project Two</li>
-                    </ul>
-                  
-                  
-                    <div class="gallery main-gallery">
-                      
-                        <figure>
-                          <img width="600"
-                               height="338"
-                               src="https://picsum.photos/600/338?random=4"
-                               alt="Image Caption 4">
-                          <figcaption>Image Caption 4</figcaption>
-                        </figure>
-                      
-                        <figure>
-                          <img width="600"
-                               height="338"
-                               src="https://picsum.photos/600/338?random=5"
-                               alt="Image Caption 5">
-                          <figcaption>Image Caption 5</figcaption>
-                        </figure>
-                      
-                        <figure>
-                          <img width="600"
-                               height="338"
-                               src="https://picsum.photos/600/338?random=6"
-                               alt="Image Caption 6">
-                          <figcaption>Image Caption 6</figcaption>
-                        </figure>
-                      
-                    </div>
-                  
-                </section>
-              
-            </section>
-          
-
-          
-            <section>
-              <h2 class="section-heading">Volunteer Experience</h2>
-              
-                <section>
-                  <h3>
-                    
-                      Position One at <a href="https://sample.com">Latest Organization</a>
-                    
-                  </h3>
-                  
-                    <p class="section-label">01/01/2020 - Present</p>
-                  
-                  <p>Short summary about present volunteer work</p>
-                  
-                    <ul>
-                      <li>First Duty of Current Organization</li><li>Second Duty of Current Organization</li><li>Third Duty of Current Organization</li>
-                    </ul>
-                  
-                </section>
-              
-                <section>
-                  <h3>
-                    
-                      Position Two at <a href="https://sample.com">Previous Organization</a>
-                    
-                  </h3>
-                  
-                    <p class="section-label">01/01/2010 - 01/01/2020</p>
-                  
-                  <p>Short summary about previous volunteer work</p>
-                  
-                    <ul>
-                      <li>First Duty of Previous Organization</li><li>Second Duty of Previous Organization</li><li>Third Duty of Previous Organization</li>
-                    </ul>
-                  
-                </section>
-              
-            </section>
-          
-
-          
-            <section>
-              <h2 class="section-heading">References</h2>
-              
-                <section>
-                  <h3>Person One</h3>
-                  <p class="section-label">Previous Boss</p>
-                  
-                    <blockquote>
-                      Some nice things that Person One said about you, your work ethic, and how you provided value to their team.
-                    </blockquote>
-                  
-                </section>
-              
-                <section>
-                  <h3>Person Two</h3>
-                  <p class="section-label">Previous Coworker</p>
-                  
-                    <blockquote>
-                      More kind things that Person Two said about you, what it was like working with you, and things you&#39;ve accomplished.
-                    </blockquote>
-                  
-                </section>
-              
-            </section>
-          
-        </main>
-
-        <!-- Sidebar Section -->
-        <aside>
-          
-            <section>
-              <h2 class="section-heading">Education</h2>
-              
-                <section>
-                  <h3>
-                    
-                      <a href="https://sample.com">Institution One</a>
-                    
-                  </h3>
-                  <p class="section-label">Institution One Location</p>
-                  
-                    <h4>Degrees</h4>
-                    <ul>
-                      <li>Master of Science in Computer Science</li><li>Minor in Mathematics</li>
-                    </ul>
-                  
-                  
-                    <h4>Honors</h4>
-                    <ul>
-                      <li>Outstanding Student Award</li><li>Dean&#39;s List</li>
-                    </ul>
-                  
-                  
-                    <p>
-                      <span class="block">GPA in Major: 4.0</span>
-                      <span class="block">Cumulative GPA: 3.5</span>
-                      <span class="block">Graduation Date: 01/01/2005</span>
-                    </p>
-                  
-                </section>
-              
-                <section>
-                  <h3>
-                    
-                      <a href="https://sample.com">Institution Two</a>
-                    
-                  </h3>
-                  <p class="section-label">Institution Two Location</p>
-                  
-                    <h4>Degrees</h4>
-                    <ul>
-                      <li>Bachelor of Science in Physics</li>
-                    </ul>
-                  
-                  
-                    <h4>Honors</h4>
-                    <ul>
-                      <li>Scholarship Recipient</li>
-                    </ul>
-                  
-                  
-                    <p>
-                      <span class="block">GPA in Major: 3.9</span>
-                      <span class="block">Cumulative GPA: 3.2</span>
-                      <span class="block">Graduation Date: 01/01/2000</span>
-                    </p>
-                  
-                </section>
-              
-            </section>
-          
-
-          
-            <section>
-              <h2 class="section-heading">Skills</h2>
-              <ul class="unstyled-list">
-                
-                  <li>
-                    <h3>My First Skill</h3>
-                    <div class="skill-bar">
-                      <div class="skill-bar-fill w-100"
-                           role="meter"
-                           aria-valuenow="100"
-                           aria-valuemin="0"
-                           aria-valuemax="100">
-                        <span class="skill-bar-label">Proficiency Level</span>
-                      </div>
-                    </div>
-                  </li>
-                
-                  <li>
-                    <h3>My Second Skill</h3>
-                    <div class="skill-bar">
-                      <div class="skill-bar-fill w-80"
-                           role="meter"
-                           aria-valuenow="80"
-                           aria-valuemin="0"
-                           aria-valuemax="100">
-                        <span class="skill-bar-label">Proficiency Level</span>
-                      </div>
-                    </div>
-                  </li>
-                
-              </ul>
-            </section>
-          
-
-          
-            <section>
-              <h2 class="section-heading">Languages</h2>
-              <ul class="unstyled-list">
-                
-                  <li>
-                    <h3>English</h3>
-                    <p class="section-label">Native speaker</p>
-                  </li>
-                
-                  <li>
-                    <h3>American Sign Language</h3>
-                    <p class="section-label">Professional Working Proficiency</p>
-                  </li>
-                
-              </ul>
-            </section>
-          
-
-          
-            <section>
-              <h2 class="section-heading">Interests</h2>
-              
-                <section>
-                  <h3>My First Hobby</h3>
-                  <p>Short summary about my first Hobby</p>
-                  
-                    <div class="gallery side-gallery">
-                      
-                        <figure>
-                          <img width="600"
-                               height="338"
-                               src="https://picsum.photos/600/338?random=7"
-                               alt="Image Caption 7">
-                          <figcaption>Image Caption 7</figcaption>
-                        </figure>
-                      
-                        <figure>
-                          <img width="600"
-                               height="338"
-                               src="https://picsum.photos/600/338?random=8"
-                               alt="Image Caption 8">
-                          <figcaption>Image Caption 8</figcaption>
-                        </figure>
-                      
-                    </div>
-                  
-                </section>
-              
-                <section>
-                  <h3>My Second Hobby</h3>
-                  <p>Short summary about my second hobby</p>
-                  
-                    <div class="gallery side-gallery">
-                      
-                        <figure>
-                          <img width="600"
-                               height="338"
-                               src="https://picsum.photos/600/338?random=9"
-                               alt="Image Caption 9">
-                          <figcaption>Image Caption 9</figcaption>
-                        </figure>
-                      
-                        <figure>
-                          <img width="600"
-                               height="338"
-                               src="https://picsum.photos/600/338?random=10"
-                               alt="Image Caption 10">
-                          <figcaption>Image Caption 10</figcaption>
-                        </figure>
-                      
-                    </div>
-                  
-                </section>
-              
-            </section>
-          
-        </aside>
+      <div class="pub-title">[Your Paper Title: e.g. GX 13+1 as a Hadronic PeVatron Detected by HAWC]</div>
+      <div class="pub-authors"><em>[Your Name]</em>, Co-Author A, Co-Author B, et al.</div>
+      <div class="pub-links">
+        <a href="#" class="pub-link">arXiv</a>
+        <a href="#" class="pub-link">ADS</a>
+        <a href="#" class="pub-link">PDF</a>
       </div>
     </div>
-
-    <footer class="page-footer">
-      <div class="container">
-        <p>©  Rishi Babu. All rights reserved.</p>
+    <div class="pub-item reveal reveal-delay-1">
+      <div class="pub-meta">
+        <span class="tag tag-year">2024</span>
+        <span class="tag tag-journal">Phys. Rev. D</span>
       </div>
-    </footer>
+      <div class="pub-title">[Paper Title Placeholder — e.g. Neutrino Flux Constraints from Galactic Transients]</div>
+      <div class="pub-authors">Co-Author A, <em>[Your Name]</em>, Co-Author B, et al.</div>
+      <div class="pub-links">
+        <a href="#" class="pub-link">arXiv</a>
+        <a href="#" class="pub-link">ADS</a>
+      </div>
+    </div>
+    <div class="pub-item reveal reveal-delay-2">
+      <div class="pub-meta">
+        <span class="tag tag-year">2023</span>
+        <span class="tag tag-journal">MNRAS</span>
+      </div>
+      <div class="pub-title">[Paper Title Placeholder — e.g. Angular Resolution of the IceCube Neutrino Observatory]</div>
+      <div class="pub-authors">Collaboration, <em>[Your Name]</em>, et al.</div>
+      <div class="pub-links">
+        <a href="#" class="pub-link">arXiv</a>
+        <a href="#" class="pub-link">ADS</a>
+      </div>
+    </div>
+    <div class="pub-item reveal reveal-delay-3">
+      <div class="pub-meta">
+        <span class="tag tag-year">2022</span>
+        <span class="tag tag-journal">JCAP</span>
+        <span class="tag tag-first">First Author</span>
+      </div>
+      <div class="pub-title">[Paper Title Placeholder]</div>
+      <div class="pub-authors"><em>[Your Name]</em>, et al.</div>
+      <div class="pub-links">
+        <a href="#" class="pub-link">arXiv</a>
+        <a href="#" class="pub-link">ADS</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script src="js/app.js"></script>
-  </body>
+<div class="sep"></div>
+
+<!-- ── PRESENTATIONS ── -->
+<section id="presentations">
+  <p class="section-label reveal">Talks & Posters</p>
+  <h2 class="reveal reveal-delay-1">Presentations</h2>
+  <div class="section-divider reveal reveal-delay-2"></div>
+  <p class="section-intro reveal reveal-delay-2">Selected talks, invited lectures, and conference posters.</p>
+
+  <div class="pres-grid">
+    <div class="pres-card reveal">
+      <div class="pres-thumb">[ Slide Preview Image ]</div>
+      <div class="pres-body">
+        <h3>[Talk Title Placeholder]</h3>
+        <p>[Conference Name], [City], [Month Year]</p>
+        <p class="pres-type">Invited Talk</p>
+      </div>
+    </div>
+    <div class="pres-card reveal reveal-delay-1">
+      <div class="pres-thumb">[ Slide Preview Image ]</div>
+      <div class="pres-body">
+        <h3>[Talk Title Placeholder]</h3>
+        <p>[Conference Name], [City], [Month Year]</p>
+        <p class="pres-type">Contributed Talk</p>
+      </div>
+    </div>
+    <div class="pres-card reveal reveal-delay-2">
+      <div class="pres-thumb">[ Poster Preview Image ]</div>
+      <div class="pres-body">
+        <h3>[Poster Title Placeholder]</h3>
+        <p>[Conference Name], [City], [Month Year]</p>
+        <p class="pres-type">Poster</p>
+      </div>
+    </div>
+    <div class="pres-card reveal reveal-delay-3">
+      <div class="pres-thumb">[ Slide Preview Image ]</div>
+      <div class="pres-body">
+        <h3>[Talk Title Placeholder]</h3>
+        <p>[Seminar Series], [Institution], [Year]</p>
+        <p class="pres-type">Seminar</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ── OUTREACH ── -->
+<section id="outreach">
+  <p class="section-label reveal">Public Engagement</p>
+  <h2 class="reveal reveal-delay-1">Outreach</h2>
+  <div class="section-divider reveal reveal-delay-2"></div>
+  <p class="section-intro reveal reveal-delay-2">Bringing the universe closer — through public talks, media, and education initiatives.</p>
+
+  <div class="outreach-grid">
+    <div class="outreach-card reveal">
+      <div class="outreach-img">🌠</div>
+      <div class="outreach-body">
+        <h3>[Event / Program Name]</h3>
+        <p>Brief description of the outreach activity, audience, and impact. [e.g. Star party for middle school students, 200 attendees.]</p>
+      </div>
+    </div>
+    <div class="outreach-card reveal reveal-delay-1">
+      <div class="outreach-img">🎙️</div>
+      <div class="outreach-body">
+        <h3>[Media / Podcast / Article]</h3>
+        <p>Brief description. [e.g. Interview on public radio discussing IceCube discoveries and neutrino astrophysics.]</p>
+      </div>
+    </div>
+    <div class="outreach-card reveal reveal-delay-2">
+      <div class="outreach-img">🏫</div>
+      <div class="outreach-body">
+        <h3>[Education Initiative]</h3>
+        <p>Brief description. [e.g. Guest lecturer in undergraduate astronomy survey course, Michigan Tech, Spring 2024.]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ── CODES ── -->
+<section id="codes">
+  <p class="section-label reveal">Open Source</p>
+  <h2 class="reveal reveal-delay-1">Codes & Software</h2>
+  <div class="section-divider reveal reveal-delay-2"></div>
+  <p class="section-intro reveal reveal-delay-2">Public repositories and tools developed for astrophysics data analysis.</p>
+
+  <div class="code-list">
+    <div class="code-card reveal">
+      <div class="code-icon">🧠</div>
+      <div class="code-body">
+        <h3>[repo-name]</h3>
+        <p>Brief description of the code. [e.g. Hybrid GNN + PCA classifier for tau/electron neutrino discrimination in IceCube events. Includes SHAP-based feature importance analysis.]</p>
+        <div class="code-pills">
+          <span class="pill">Python</span>
+          <span class="pill">PyTorch</span>
+          <span class="pill">Graph Neural Network</span>
+        </div>
+        <div class="code-links">
+          <a href="#" class="pub-link">GitHub</a>
+          <a href="#" class="pub-link">Docs</a>
+        </div>
+      </div>
+    </div>
+    <div class="code-card reveal reveal-delay-1">
+      <div class="code-icon">⚙️</div>
+      <div class="code-body">
+        <h3>[repo-name]</h3>
+        <p>Brief description. [e.g. JAX-based neutrino event reconstruction pipeline (TPN). Optimized for GPU-parallel batch inference on H200 nodes.]</p>
+        <div class="code-pills">
+          <span class="pill">Python</span>
+          <span class="pill">JAX</span>
+          <span class="pill">GPU</span>
+        </div>
+        <div class="code-links">
+          <a href="#" class="pub-link">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="code-card reveal reveal-delay-2">
+      <div class="code-icon">📡</div>
+      <div class="code-body">
+        <h3>[repo-name]</h3>
+        <p>Brief description. [e.g. Multi-messenger source correlation pipeline for HAWC gamma-ray maps and IceCube neutrino event lists.]</p>
+        <div class="code-pills">
+          <span class="pill">Python</span>
+          <span class="pill">Astropy</span>
+          <span class="pill">HEALPix</span>
+        </div>
+        <div class="code-links">
+          <a href="#" class="pub-link">GitHub</a>
+          <a href="#" class="pub-link">arXiv</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="about-layout">
+    <div class="about-photo reveal">
+      <div class="about-photo-frame">
+        <!-- Replace with: <img src="your-photo.jpg" alt="Dr. [Your Name]" /> -->
+        [ Photo Placeholder<br>~3:4 aspect ratio<br>recommended ]
+      </div>
+      <div class="about-links">
+        <a href="mailto:you@university.edu" class="btn btn-ghost" style="font-size:0.78rem;">Email</a>
+        <a href="#" class="btn btn-ghost" style="font-size:0.78rem;">CV (PDF)</a>
+        <a href="https://github.com" class="btn btn-ghost" style="font-size:0.78rem;">GitHub</a>
+        <a href="https://orcid.org" class="btn btn-ghost" style="font-size:0.78rem;">ORCID</a>
+      </div>
+    </div>
+    <div class="about-content">
+      <p class="section-label reveal">About</p>
+      <h2 class="reveal reveal-delay-1">Hello, I'm<br><span style="color:var(--blue)">[Your Name]</span></h2>
+      <div class="section-divider reveal reveal-delay-2"></div>
+      <p class="reveal reveal-delay-2">[Short bio paragraph. E.g. I am a researcher in high-energy astrophysics at Michigan Technological University, where I study the most energetic phenomena in the universe — from neutron-star X-ray binaries as cosmic-ray accelerators to high-energy neutrino emission detected by IceCube.]</p>
+      <p class="reveal reveal-delay-3">[Second paragraph. E.g. My work sits at the intersection of multi-messenger astronomy and machine learning. I develop novel reconstruction algorithms and source identification pipelines, combining gamma-ray, neutrino, and X-ray observations to uncover hadronic acceleration mechanisms.]</p>
+      <p class="reveal reveal-delay-4">[Third paragraph, more personal. E.g. Outside of research, I'm passionate about science communication and mentoring early-career researchers. I believe that open, reproducible science is essential to the field.]</p>
+
+      <div class="affil-list reveal reveal-delay-4">
+        <div class="affil-item"><div class="affil-dot"></div>[Position] · [Institution]</div>
+        <div class="affil-item"><div class="affil-dot"></div>[Collaboration / Group Membership]</div>
+        <div class="affil-item"><div class="affil-dot"></div">Ph.D., [Field] · [University], [Year]</div>
+        <div class="affil-item"><div class="affil-dot"></div">B.Sc., [Field] · [University], [Year]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2025 <a href="#home">Dr. [Your Name]</a> &nbsp;·&nbsp; Built with HTML/CSS/JS &nbsp;·&nbsp;
+  <a href="mailto:you@university.edu">you@university.edu</a></p>
+</footer>
+
+<!-- ── SCRIPTS ── -->
+<script>
+/* ─── Star Field Canvas ─── */
+(function() {
+  const canvas = document.getElementById('star-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [], W, H, scrollY = 0;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function initStars(n) {
+    stars = [];
+    for (let i = 0; i < n; i++) {
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.4 + 0.2,
+        alpha: Math.random() * 0.7 + 0.15,
+        speed: Math.random() * 0.3 + 0.05,
+        twinkleOffset: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  let t = 0;
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    t += 0.008;
+    const parallax = scrollY * 0.18;
+
+    stars.forEach(s => {
+      const twinkle = 0.5 + 0.5 * Math.sin(t * s.speed * 4 + s.twinkleOffset);
+      ctx.beginPath();
+      ctx.arc(s.x, (s.y - parallax * s.speed * 3 + H) % H, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(200, 220, 255, ${s.alpha * twinkle})`;
+      ctx.fill();
+    });
+
+    // subtle nebula blobs
+    const grad1 = ctx.createRadialGradient(W * 0.2, H * 0.3, 0, W * 0.2, H * 0.3, W * 0.35);
+    grad1.addColorStop(0, 'rgba(80,100,200,0.04)');
+    grad1.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad1; ctx.fillRect(0,0,W,H);
+
+    const grad2 = ctx.createRadialGradient(W * 0.8, H * 0.6, 0, W * 0.8, H * 0.6, W * 0.3);
+    grad2.addColorStop(0, 'rgba(120,60,180,0.05)');
+    grad2.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad2; ctx.fillRect(0,0,W,H);
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('scroll', () => { scrollY = window.scrollY; });
+  window.addEventListener('resize', () => { resize(); initStars(220); });
+  resize();
+  initStars(220);
+  draw();
+})();
+
+/* ─── Intersection Observer for reveal ─── */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+
+/* ─── Active nav link on scroll ─── */
+const sections = document.querySelectorAll('section[id], nav');
+const navLinks  = document.querySelectorAll('.nav-links a');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+
+document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
+</script>
+</body>
 </html>
