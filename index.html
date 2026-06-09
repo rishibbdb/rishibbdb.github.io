@@ -111,7 +111,6 @@
       margin-bottom: 1.8rem;
       opacity: 0;
       animation: fadeUp 0.8s 0.4s ease forwards;
-      background: var(--bg3);
     }
     .hero-avatar-placeholder {
       width: 140px; height: 140px;
@@ -254,6 +253,16 @@
       color: var(--text);
     }
     .research-card p { color: var(--muted); font-size: 0.92rem; }
+    .research-image {
+      width: 100%; height: 160px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.8rem;
+      font-family: 'Space Mono', monospace;
+    }
 
     /* ── PUBLICATIONS ── */
     .pub-list { display: flex; flex-direction: column; gap: 1.2rem; }
@@ -509,7 +518,7 @@
 
 <!-- ── NAV ── -->
 <nav id="navbar">
-  <a class="nav-logo" href="#home">Dr. [Your Name]</a>
+  <a class="nav-logo" href="#home">Dr. Rishi Babu</a>
   <ul class="nav-links">
     <li><a href="#home" class="active">Home</a></li>
     <li><a href="#publications">Publications</a></li>
@@ -524,16 +533,12 @@
 <section id="home">
   <canvas id="star-canvas"></canvas>
   <div class="hero-inner">
-    <div class="hero-badge">High-Energy Astrophysics &nbsp;·&nbsp; Multi-Messenger Astronomy</div>
-    <div class="hero-avatar-placeholder">
-      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1">
-        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-      </svg>
-    </div>
-    <h1>Dr. <span>[Your Name]</span></h1>
+    <div class="hero-badge">High-Energy Astrophysics &nbsp;·&nbsp; Multi-Messenger Astronomy &nbsp;·&nbsp; Machine Learning</div> 
+    <img src="images/ProfilePic.jpeg" alt="Dr. Rishi Babu" class="hero-avatar" />
+    <h1>Dr. <span>Rishi Babu</span></h1>
     <p class="hero-sub">
-      Postdoctoral Researcher · <strong>[Your Institution]</strong><br>
-      Unraveling the universe's most energetic messengers — cosmic rays, neutrinos, and gamma-ray sources.
+      Postdoctoral Researcher · <strong>Michigan State University</strong><br>
+      Trying to understand the most energetic phenomena in the universe, one source at a time.
     </p>
     <div class="hero-cta">
       <a href="#publications" class="btn btn-primary">View Publications</a>
@@ -553,24 +558,25 @@
   <div class="section-divider reveal reveal-delay-2"></div>
   <div class="research-grid">
     <div class="research-card reveal reveal-delay-1">
-      <div class="research-icon">⚡</div>
-      <h3>PeVatron Sources</h3>
-      <p>Searching for hadronic accelerators capable of producing cosmic rays beyond the PeV scale, using multi-wavelength and multi-messenger observations.</p>
+      <div class="research-image"> <img src="images/hawc-logo-small.png" alt="PeVatron Sources" style="background-color: white;" /> </div>
+      <!-- <div class="research-icon">⚡</div> -->
+      <h3>Identifying unidentified PeVatron Sources</h3>
+      <p>Characterizing ultra-high-energy gamma-ray sources, beyong the PeV scale, using multi-wavelength and multi-messenger observations particularly with Fermi-LAT, HAWC and IceCube observatories.</p>
     </div>
     <div class="research-card reveal reveal-delay-2">
-      <div class="research-icon">🔭</div>
-      <h3>Gamma-Ray Astronomy</h3>
-      <p>Analyzing TeV gamma-ray data from HAWC and H.E.S.S. to characterize extended emission and constrain source morphology near LMXBs and SNRs.</p>
+      <div class="research-image"><img src="images/icecube-logo.png" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" /></div>
+      <h3>Neutrino Astrophysics</h3>
+      <p>Analyzing potential neutrino emitters from within the galaxy and also outside the galaxy to constrain the hadronic fraction of the observed gamma rays.</p>
     </div>
     <div class="research-card reveal reveal-delay-3">
-      <div class="research-icon">☄️</div>
-      <h3>Neutrino Physics</h3>
-      <p>Developing reconstruction and classification algorithms for IceCube neutrino events, targeting astrophysical source associations.</p>
+      <div class="research-image"><img src="images/icecube-logo.png" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" /></div>
+      <h3>Machine learning applications to data reconstructions</h3>
+      <p>Developing scalable and computationally efficient reconstruction and classification algorithms for IceCube neutrino track and shower events, increasing the sensitivity of the observatory.</p>
     </div>
     <div class="research-card reveal reveal-delay-4">
-      <div class="research-icon">🤖</div>
-      <h3>Machine Learning Methods</h3>
-      <p>Building hybrid GNN and deep learning pipelines for event reconstruction, particle identification, and source classification in high-energy detectors.</p>
+      <div class="research-image"><img src="images/fermi-map.jpg" alt="Fermi Map" style="height: 100%; width: 100%; object-fit: contain;" /></div>
+      <h3>Image processing applications to Astrophysics</h3>
+      <p>Exploring the use of image processing techniques to enhance the analysis of astronomical data, particularly in the context of source seeding and detection algorithms for deep learning and computer vision.</p>
     </div>
   </div>
 </section>
@@ -582,60 +588,77 @@
   <p class="section-label reveal">Output</p>
   <h2 class="reveal reveal-delay-1">Publications</h2>
   <div class="section-divider reveal reveal-delay-2"></div>
-  <p class="section-intro reveal reveal-delay-2">Peer-reviewed articles, preprints, and conference proceedings. Full list on <a href="https://arxiv.org" style="color:var(--blue)">arXiv</a> and <a href="https://ui.adsabs.harvard.edu" style="color:var(--blue)">NASA/ADS</a>.</p>
+  <p class="section-intro reveal reveal-delay-2">Peer-reviewed articles, preprints, and conference proceedings. Full list on <a href="https://arxiv.org/search/advanced?advanced=&terms-0-operator=AND&terms-0-term=Babu%2C+R&terms-0-field=author&classification-physics=y&classification-physics_archives=all&classification-include_cross_list=include&date-filter_by=all_dates&date-year=&date-from_date=&date-to_date=&date-date_type=submitted_date&abstracts=show&size=50&order=-announced_date_first" style="color:var(--blue)">arXiv</a> and <a href="https://ui.adsabs.harvard.edu/search/filter_database_fq_database=AND&filter_database_fq_database=database%3A%22astronomy%22&fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq_database=(database%3A%22astronomy%22)&p_=0&q=author%3A%22Babu%2C%20R.%22&sort=date%20desc%2C%20bibcode%20desc" style="color:var(--blue)">NASA/ADS</a>.</p>
 
   <div class="pub-list">
     <div class="pub-item reveal">
       <div class="pub-meta">
-        <span class="tag tag-year">2025</span>
+        <span class="tag tag-year">2024</span>
         <span class="tag tag-journal">ApJ Letters</span>
         <span class="tag tag-first">First Author</span>
       </div>
-      <div class="pub-title">[Your Paper Title: e.g. GX 13+1 as a Hadronic PeVatron Detected by HAWC]</div>
-      <div class="pub-authors"><em>[Your Name]</em>, Co-Author A, Co-Author B, et al.</div>
+      <div class="pub-title">Observation of the Galactic Center PeVatron Beyond 100 TeV with HAWC</div>
+      <div class="pub-authors">S. Yun, D. Huang, <em>R. Babu</em>, K.L. Fan, HAWC Collaboration et al.</div>
       <div class="pub-links">
-        <a href="#" class="pub-link">arXiv</a>
-        <a href="#" class="pub-link">ADS</a>
-        <a href="#" class="pub-link">PDF</a>
+        <a href="https://arxiv.org/abs/2407.03682" class="pub-link">arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2024ApJ...973L..34A/abstract" class="pub-link">ADS</a>
+        <a href="https://arxiv.org/pdf/2407.03682" class="pub-link">PDF</a>
       </div>
     </div>
     <div class="pub-item reveal reveal-delay-1">
       <div class="pub-meta">
         <span class="tag tag-year">2024</span>
-        <span class="tag tag-journal">Phys. Rev. D</span>
+        <span class="tag tag-journal">ApJ</span>
+        <span class="tag tag-first">First Author</span>
       </div>
-      <div class="pub-title">[Paper Title Placeholder — e.g. Neutrino Flux Constraints from Galactic Transients]</div>
-      <div class="pub-authors">Co-Author A, <em>[Your Name]</em>, Co-Author B, et al.</div>
+      <div class="pub-title">TeV Analysis of a Source Rich Region with HAWC Observatory: Is HESS J1809-193 a Potential Hadronic PeVatron?</div>
+      <div class="pub-authors"> <em>R. Babu</em>, HAWC Collaboration et al.</div>
       <div class="pub-links">
-        <a href="#" class="pub-link">arXiv</a>
-        <a href="#" class="pub-link">ADS</a>
+        <a href="https://arxiv.org/abs/2407.08849" class="pub-link">arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2024ApJ...972...21A/abstract" class="pub-link">ADS</a>
+        <a href="https://arxiv.org/pdf/2407.08849" class="pub-link">PDF</a>
+      </div>
+    </div>
+        <div class="pub-item reveal reveal-delay-3">
+      <div class="pub-meta">
+        <span class="tag tag-year">2024</span>
+        <span class="tag tag-journal">Nature</span>
+        <span class="tag tag-first">Corresponding Author</span>
+      </div>
+      <div class="pub-title">Ultra-high-energy gamma-ray bubble around microquasar V4641 Sgr</div>
+      <div class="pub-authors"><em>HAWC Collaboration</em>, et al.</div>
+      <div class="pub-links">
+        <a href="https://www.nature.com/articles/s41586-024-07995-9" class="pub-link">Nature</a>
+        <a href="https://arxiv.org/abs/2410.16117" class="pub-link">arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2024Natur.634..557A/abstract" class="pub-link">ADS</a>
       </div>
     </div>
     <div class="pub-item reveal reveal-delay-2">
       <div class="pub-meta">
-        <span class="tag tag-year">2023</span>
-        <span class="tag tag-journal">MNRAS</span>
+        <span class="tag tag-year">2025</span>
+        <span class="tag tag-journal">ICRC Proceeding</span>
       </div>
-      <div class="pub-title">[Paper Title Placeholder — e.g. Angular Resolution of the IceCube Neutrino Observatory]</div>
-      <div class="pub-authors">Collaboration, <em>[Your Name]</em>, et al.</div>
+      <div class="pub-title">Improving Gamma-ray Source Search with Image Processing</div>
+      <div class="pub-authors"> <em>R. Babu</em>, P. Wentworth, I. Herzog, D. Salazar, M. Nisa, HAWC Collaboration et al.</div>
       <div class="pub-links">
-        <a href="#" class="pub-link">arXiv</a>
-        <a href="#" class="pub-link">ADS</a>
+        <a href="https://arxiv.org/abs/2507.10307v1" class="pub-link" >arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2025arXiv250710307B/abstract" class="pub-link">ADS</a>
       </div>
     </div>
-    <div class="pub-item reveal reveal-delay-3">
+    <div class="pub-item reveal reveal-delay-2">
       <div class="pub-meta">
-        <span class="tag tag-year">2022</span>
-        <span class="tag tag-journal">JCAP</span>
-        <span class="tag tag-first">First Author</span>
+        <span class="tag tag-year">2026</span>
+        <span class="tag tag-journal">ApJ(Submitted)</span>
       </div>
-      <div class="pub-title">[Paper Title Placeholder]</div>
-      <div class="pub-authors"><em>[Your Name]</em>, et al.</div>
+      <div class="pub-title">HAWC Study on the Ultra-High-Energy Gamma-Ray Emissions from the Pulsar Wind Nebula G32.64+0.53</div>
+      <div class="pub-authors"> <em>R. Babu</em>, C.D. Rho, Y. Son, HAWC Collaboration et al.</div>
       <div class="pub-links">
-        <a href="#" class="pub-link">arXiv</a>
-        <a href="#" class="pub-link">ADS</a>
+        <a href="https://arxiv.org/abs/2603.19721v1" class="pub-link" >arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2026arXiv260319721A/abstract" class="pub-link">ADS</a>
+        <a href="https://arxiv.org/pdf/2603.19721v1" class="pub-link">PDF</a>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -646,39 +669,56 @@
   <p class="section-label reveal">Talks & Posters</p>
   <h2 class="reveal reveal-delay-1">Presentations</h2>
   <div class="section-divider reveal reveal-delay-2"></div>
-  <p class="section-intro reveal reveal-delay-2">Selected talks, invited lectures, and conference posters.</p>
+  <p class="section-intro reveal reveal-delay-2">Selected talks and invited lectures.</p>
 
   <div class="pres-grid">
     <div class="pres-card reveal">
-      <div class="pres-thumb">[ Slide Preview Image ]</div>
+      <div class="pres-thumb"><img src="images/TurkeyWS.jpg" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
       <div class="pres-body">
-        <h3>[Talk Title Placeholder]</h3>
-        <p>[Conference Name], [City], [Month Year]</p>
-        <p class="pres-type">Invited Talk</p>
+        <h3>Multi-messenger Astrophysics with Neutrinos</h3>
+        <p>TÜBİTAK TBAE (Research Institute for Fundamental Sciences), Türkiye, Feb 2026</p>
+        <p><a href="https://www.youtube.com/watch?v=hW7bX9qqeeY" class="pres-type">Invited Talk (Click to see recording)</a></p>
       </div>
     </div>
     <div class="pres-card reveal reveal-delay-1">
-      <div class="pres-thumb">[ Slide Preview Image ]</div>
+      <div class="pres-thumb"><img src="images/wrightstate.jpg" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
       <div class="pres-body">
-        <h3>[Talk Title Placeholder]</h3>
-        <p>[Conference Name], [City], [Month Year]</p>
+        <h3>Understanding the Enigmatic Particle Accelerators in the Universe with the Multi-Messenger
+observations</h3>
+        <p>Invited Seminar, Wright State University, Ohio USA, Oct 2025</p>
+        <p class="pres-type">Invited Seminar Talk</p>
+      </div>
+    </div>
+      <div class="pres-card reveal reveal-delay-2">
+      <div class="pres-thumb"><img src="images/lepton-photon.jpg" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
+      <div class="pres-body">
+        <h3>Multi-wavelength Analysis of Unassociated LHAASO TeV Sources using HAWC Observatory </h3>
+        <p>Lepton-Photon Conference 2024, Madison, WI, 2025</p>
         <p class="pres-type">Contributed Talk</p>
       </div>
     </div>
     <div class="pres-card reveal reveal-delay-2">
-      <div class="pres-thumb">[ Poster Preview Image ]</div>
+      <div class="pres-thumb"><img src="images/tevpa.jpg" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
       <div class="pres-body">
-        <h3>[Poster Title Placeholder]</h3>
-        <p>[Conference Name], [City], [Month Year]</p>
-        <p class="pres-type">Poster</p>
+        <h3>Search for Astrophysical Neutrinos from the 4FGL Galactic Plane Sources with the Pion-Bump Signature </h3>
+        <p>TeVPA 2024, Chicago, 2024</p>
+        <p class="pres-type">Contributed Talk</p>
       </div>
     </div>
     <div class="pres-card reveal reveal-delay-3">
-      <div class="pres-thumb">[ Slide Preview Image ]</div>
+      <div class="pres-thumb"><img src="images/fermisym.jpg" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
       <div class="pres-body">
-        <h3>[Talk Title Placeholder]</h3>
-        <p>[Seminar Series], [Institution], [Year]</p>
-        <p class="pres-type">Seminar</p>
+        <h3>HAWC J1813-178 and its potential counterpart </h3>
+        <p>11th International Fermi Symposium, UMD College Park, MD, Sept 2024</p>
+        <p class="pres-type">Contributed Talk</p>
+      </div>
+    </div>
+    <div class="pres-card reveal reveal-delay-3">
+      <div class="pres-thumb"><img src="images/icrc.jpeg" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
+      <div class="pres-body">
+        <h3>High energy gamma ray emission from HESS J1809-193: Morphological and Spectral studies with HAWC </h3>
+        <p>ICRC, Nagoya, Japan, July 2023</p>
+        <p class="pres-type">Contributed Talk</p>
       </div>
     </div>
   </div>
@@ -691,28 +731,28 @@
   <p class="section-label reveal">Public Engagement</p>
   <h2 class="reveal reveal-delay-1">Outreach</h2>
   <div class="section-divider reveal reveal-delay-2"></div>
-  <p class="section-intro reveal reveal-delay-2">Bringing the universe closer — through public talks, media, and education initiatives.</p>
+  <p class="section-intro reveal reveal-delay-2">Bringing the universe closer to general public so that they can appreciate the wonders of astrophysics, even if a tiny bit — through public talks and educational initiatives.</p>
 
   <div class="outreach-grid">
     <div class="outreach-card reveal">
-      <div class="outreach-img">🌠</div>
+      <div class="outreach-img"><img src="images/msu.jpeg" alt="Icecube Sources" style="background-color: None; height: 120%; width: 120%; object-fit: contain;" ></div>
       <div class="outreach-body">
-        <h3>[Event / Program Name]</h3>
-        <p>Brief description of the outreach activity, audience, and impact. [e.g. Star party for middle school students, 200 attendees.]</p>
+        <h3>Michigan State Science Festival</h3>
+        <p>Representing the High Energy Physics group at the Michigan State Science Festival to talk about the high energy particles coming from space and give a demo of how we can detect these astronomical particles on Earth using a cloud chamber.</p>
       </div>
     </div>
     <div class="outreach-card reveal reveal-delay-1">
-      <div class="outreach-img">🎙️</div>
+      <div class="outreach-img"><img src="images/icecube-logo.png" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
       <div class="outreach-body">
-        <h3>[Media / Podcast / Article]</h3>
-        <p>Brief description. [e.g. Interview on public radio discussing IceCube discoveries and neutrino astrophysics.]</p>
+        <h3>IceCube Masterclass</h3>
+        <p>Participating in the IceCube Masterclass to educate high school students about neutrino astrophysics at the South Pole using IceCube Observatory and provide hands-on experience of obsering particles in-lab.</p>
       </div>
     </div>
     <div class="outreach-card reveal reveal-delay-2">
-      <div class="outreach-img">🏫</div>
+      <div class="outreach-img"><img src="images/abrams.jpg" alt="abrams Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
       <div class="outreach-body">
-        <h3>[Education Initiative]</h3>
-        <p>Brief description. [e.g. Guest lecturer in undergraduate astronomy survey course, Michigan Tech, Spring 2024.]</p>
+        <h3>Public Seminar at the MSU Planetarium</h3>
+        <p> Gave a public seminar at the MSU Planetarium to create awareness among the general public that astrophysics is more than just observing the universe through a telescope with visible light. Educated them on the evolution and the death of stars and the high-energy observations of what remains after.</p>
       </div>
     </div>
   </div>
