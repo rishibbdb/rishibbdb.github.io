@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. [Your Name] — Astrophysicist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080C14;
+      --bg2:       #0D1220;
+      --bg3:       #111827;
+      --blue:      #7B9FFF;
+      --blue-dim:  #3D5FA0;
+      --amber:     #FFB347;
+      --text:      #E2E8F0;
+      --muted:     #8A97B0;
+      --border:    rgba(123,159,255,0.15);
+      --nav-h:     64px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
+      background: rgba(8,12,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--blue);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.4rem 0.85rem;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text);
+      background: rgba(123,159,255,0.1);
+    }
+
+    /* ── HERO ── */
+    #home {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    #star-canvas {
+      position: absolute; inset: 0;
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      max-width: 820px;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      border: 1px solid rgba(255,179,71,0.35);
+      border-radius: 2px;
+      padding: 0.3rem 0.8rem;
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s ease forwards;
+    }
+    .hero-avatar {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--blue-dim);
+      box-shadow: 0 0 40px rgba(123,159,255,0.25);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s ease forwards;
+    }
+    .hero-avatar-placeholder {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 3px solid var(--blue-dim);
+      box-shadow: 0 0 40px rgba(123,159,255,0.25);
+      margin: 0 auto 1.8rem;
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s ease forwards;
+    }
+    .hero-avatar-placeholder svg { opacity: 0.3; }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #fff;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.55s ease forwards;
+    }
+    h1 span { color: var(--blue); }
+    .hero-sub {
+      margin-top: 1rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s ease forwards;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 500; }
+    .hero-cta {
+      margin-top: 2.2rem;
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.85s ease forwards;
+    }
+    .btn {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.6rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: var(--bg);
+    }
+    .btn-primary:hover { background: #9ab5ff; transform: translateY(-1px); }
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: var(--muted); font-size: 0.72rem;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1s 1.4s ease forwards;
+    }
+    .scroll-arrow { animation: bounce 1.6s infinite; }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 2.5rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .section-divider {
+      width: 48px; height: 2px;
+      background: linear-gradient(90deg, var(--blue), transparent);
+      margin-bottom: 2.5rem;
+    }
+    .section-intro {
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      margin-bottom: 3rem;
+    }
+
+    /* reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── RESEARCH ── */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .research-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .research-card:hover { border-color: var(--blue-dim); transform: translateY(-3px); }
+    .research-icon {
+      width: 42px; height: 42px;
+      background: rgba(123,159,255,0.1);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    .research-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .research-card p { color: var(--muted); font-size: 0.92rem; }
+    .research-image {
+      width: 100%; height: 160px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.8rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-list { display: flex; flex-direction: column; gap: 1.2rem; }
+    .pub-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue-dim);
+      border-radius: 0 8px 8px 0;
+      padding: 1.4rem 1.6rem;
+      transition: border-left-color 0.2s;
+    }
+    .pub-item:hover { border-left-color: var(--blue); }
+    .pub-meta {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+    .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+    }
+    .tag-year { background: rgba(123,159,255,0.12); color: var(--blue); }
+    .tag-journal { background: rgba(255,179,71,0.1); color: var(--amber); }
+    .tag-first { background: rgba(100,220,120,0.1); color: #6fdc88; }
+    .pub-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+    .pub-authors { color: var(--muted); font-size: 0.88rem; }
+    .pub-authors em { color: var(--text); font-style: normal; }
+    .pub-links { margin-top: 0.8rem; display: flex; gap: 0.75rem; }
+    .pub-link {
+      font-size: 0.8rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--blue);
+      text-decoration: none;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid rgba(123,159,255,0.3);
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+    .pub-link:hover { background: rgba(123,159,255,0.1); }
+
+    /* ── PRESENTATIONS ── */
+    .pres-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .pres-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .pres-card:hover { transform: translateY(-3px); border-color: var(--blue-dim); }
+    .pres-thumb {
+      width: 100%; height: 160px;
+      object-fit: cover;
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.82rem;
+      font-family: 'Space Mono', monospace;
+    }
+    .pres-body { padding: 1.2rem; }
+    .pres-body h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--text);
+    }
+    .pres-body p { color: var(--muted); font-size: 0.85rem; }
+    .pres-type {
+      margin-top: 0.7rem;
+      font-size: 0.75rem;
+      font-family: 'Space Mono', monospace;
+      color: var(--amber);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── OUTREACH ── */
+    .outreach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .outreach-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg2);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .outreach-card:hover { transform: translateY(-3px); border-color: var(--blue-dim); }
+    .outreach-img {
+      width: 100%; height: 180px;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--bg3), #151e35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+    .outreach-body { padding: 1.3rem; }
+    .outreach-body h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+    .outreach-body p { color: var(--muted); font-size: 0.88rem; }
+
+    /* ── CODES ── */
+    .code-list { display: flex; flex-direction: column; gap: 1rem; }
+    .code-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem 1.8rem;
+      display: flex; align-items: flex-start; gap: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .code-card:hover { border-color: var(--blue-dim); }
+    .code-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+    .code-body { flex: 1; }
+    .code-body h3 {
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--blue);
+      margin-bottom: 0.3rem;
+    }
+    .code-body p { color: var(--muted); font-size: 0.9rem; }
+    .code-pills {
+      margin-top: 0.7rem;
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      background: rgba(123,159,255,0.08);
+      color: var(--blue);
+      border: 1px solid rgba(123,159,255,0.2);
+    }
+    .code-links { display: flex; gap: 0.6rem; margin-top: 1rem; }
+
+    /* ── ABOUT ── */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-photo {
+      position: sticky; top: 100px;
+    }
+    .about-photo-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      padding: 1rem;
+    }
+    .about-photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .about-links { margin-top: 1.2rem; display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .about-content h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .about-content p { color: var(--muted); margin-bottom: 1rem; font-size: 0.97rem; }
+    .affil-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .affil-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .affil-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-family: 'Space Mono', monospace;
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    /* ── SECTION SEPARATOR ── */
+    .sep {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 2.5rem;
+      max-width: 1100px;
+    }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links a { font-size: 0.72rem; padding: 0.35rem 0.55rem; letter-spacing: 0.04em; }
+      section { padding: 5rem 1.2rem; }
+      .about-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .about-photo { position: static; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      canvas { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a class="nav-logo" href="#home">Dr. Rishi Babu</a>
+  <ul class="nav-links">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#presentations">Talks</a></li>
+    <li><a href="#outreach">Outreach</a></li>
+    <li><a href="#codes">Codes</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="home">
+  <canvas id="star-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-badge">High-Energy Astrophysics &nbsp;·&nbsp; Multi-Messenger Astronomy &nbsp;·&nbsp; Machine Learning</div> 
+    <img src="images/ProfilePic.jpeg" alt="Dr. Rishi Babu" class="hero-avatar" />
+    <h1>Dr. <span>Rishi Babu</span></h1>
+    <p class="hero-sub">
+      Postdoctoral Researcher · <strong>Michigan State University</strong><br>
+      Trying to understand the most energetic phenomena in the universe, one source at a time.
+    </p>
+    <div class="hero-cta">
+      <a href="#publications" class="btn btn-primary">View Publications</a>
+      <a href="docs/CV.pdf" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">CV</a>
+      <a href="#about" class="btn btn-ghost">About Me</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <svg class="scroll-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- ── RESEARCH INTERESTS ── -->
+<section id="research" style="padding-top: 6rem;">
+  <p class="section-label reveal">Research</p>
+  <h2 class="reveal reveal-delay-1">Research Interests</h2>
+  <div class="section-divider reveal reveal-delay-2"></div>
+  <div class="research-grid">
+    <div class="research-card reveal reveal-delay-1">
+      <div class="research-image"> <img src="images/hawc-logo-small.png" alt="PeVatron Sources" style="background-color: white;" /> </div>
+      <!-- <div class="research-icon">⚡</div> -->
+      <h3>Identifying unidentified PeVatron Sources</h3>
+      <p>Characterizing ultra-high-energy gamma-ray sources, beyong the PeV scale, using multi-wavelength and multi-messenger observations particularly with Fermi-LAT, HAWC and IceCube observatories.</p>
+    </div>
+    <div class="research-card reveal reveal-delay-2">
+      <div class="research-image"><img src="images/icecube-logo.png" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" /></div>
+      <h3>Neutrino Astrophysics</h3>
+      <p>Analyzing potential neutrino emitters from within the galaxy and also outside the galaxy to constrain the hadronic fraction of the observed gamma rays.</p>
+    </div>
+    <div class="research-card reveal reveal-delay-3">
+      <div class="research-image"><img src="images/icecube-logo.png" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" /></div>
+      <h3>Machine learning applications to data reconstructions</h3>
+      <p>Developing scalable and computationally efficient reconstruction and classification algorithms for IceCube neutrino track and shower events, increasing the sensitivity of the observatory.</p>
+    </div>
+    <div class="research-card reveal reveal-delay-4">
+      <div class="research-image"><img src="images/fermi-map.jpg" alt="Fermi Map" style="height: 100%; width: 100%; object-fit: contain;" /></div>
+      <h3>Image processing applications to Astrophysics</h3>
+      <p>Exploring the use of image processing techniques to enhance the analysis of astronomical data, particularly in the context of source seeding and detection algorithms for deep learning and computer vision.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ── PUBLICATIONS ── -->
+<section id="publications">
+  <p class="section-label reveal">Output</p>
+  <h2 class="reveal reveal-delay-1">Publications</h2>
+  <div class="section-divider reveal reveal-delay-2"></div>
+  <p class="section-intro reveal reveal-delay-2">Peer-reviewed articles, preprints, and conference proceedings. Full list on <a href="https://arxiv.org/search/advanced?advanced=&terms-0-operator=AND&terms-0-term=Babu%2C+R&terms-0-field=author&classification-physics=y&classification-physics_archives=all&classification-include_cross_list=include&date-filter_by=all_dates&date-year=&date-from_date=&date-to_date=&date-date_type=submitted_date&abstracts=show&size=50&order=-announced_date_first" style="color:var(--blue)">arXiv</a> and <a href="https://ui.adsabs.harvard.edu/search/filter_database_fq_database=AND&filter_database_fq_database=database%3A%22astronomy%22&fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq_database=(database%3A%22astronomy%22)&p_=0&q=author%3A%22Babu%2C%20R.%22&sort=date%20desc%2C%20bibcode%20desc" style="color:var(--blue)">NASA/ADS</a>.</p>
+
+  <div class="pub-list">
+    <div class="pub-item reveal">
+      <div class="pub-meta">
+        <span class="tag tag-year">2024</span>
+        <span class="tag tag-journal">ApJ Letters</span>
+        <span class="tag tag-first">First Author</span>
+      </div>
+      <div class="pub-title">Observation of the Galactic Center PeVatron Beyond 100 TeV with HAWC</div>
+      <div class="pub-authors">S. Yun, D. Huang, <em>R. Babu</em>, K.L. Fan, HAWC Collaboration et al.</div>
+      <div class="pub-links">
+        <a href="https://arxiv.org/abs/2407.03682" class="pub-link">arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2024ApJ...973L..34A/abstract" class="pub-link">ADS</a>
+        <a href="https://arxiv.org/pdf/2407.03682" class="pub-link">PDF</a>
+      </div>
+    </div>
+    <div class="pub-item reveal reveal-delay-1">
+      <div class="pub-meta">
+        <span class="tag tag-year">2024</span>
+        <span class="tag tag-journal">ApJ</span>
+        <span class="tag tag-first">First Author</span>
+      </div>
+      <div class="pub-title">TeV Analysis of a Source Rich Region with HAWC Observatory: Is HESS J1809-193 a Potential Hadronic PeVatron?</div>
+      <div class="pub-authors"> <em>R. Babu</em>, HAWC Collaboration et al.</div>
+      <div class="pub-links">
+        <a href="https://arxiv.org/abs/2407.08849" class="pub-link">arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2024ApJ...972...21A/abstract" class="pub-link">ADS</a>
+        <a href="https://arxiv.org/pdf/2407.08849" class="pub-link">PDF</a>
+      </div>
+    </div>
+        <div class="pub-item reveal reveal-delay-3">
+      <div class="pub-meta">
+        <span class="tag tag-year">2024</span>
+        <span class="tag tag-journal">Nature</span>
+        <span class="tag tag-first">Corresponding Author</span>
+      </div>
+      <div class="pub-title">Ultra-high-energy gamma-ray bubble around microquasar V4641 Sgr</div>
+      <div class="pub-authors"><em>HAWC Collaboration</em>, et al.</div>
+      <div class="pub-links">
+        <a href="https://www.nature.com/articles/s41586-024-07995-9" class="pub-link">Nature</a>
+        <a href="https://arxiv.org/abs/2410.16117" class="pub-link">arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2024Natur.634..557A/abstract" class="pub-link">ADS</a>
+      </div>
+    </div>
+    <div class="pub-item reveal reveal-delay-2">
+      <div class="pub-meta">
+        <span class="tag tag-year">2025</span>
+        <span class="tag tag-journal">ICRC Proceeding</span>
+      </div>
+      <div class="pub-title">Improving Gamma-ray Source Search with Image Processing</div>
+      <div class="pub-authors"> <em>R. Babu</em>, P. Wentworth, I. Herzog, D. Salazar, M. Nisa, HAWC Collaboration et al.</div>
+      <div class="pub-links">
+        <a href="https://arxiv.org/abs/2507.10307v1" class="pub-link" >arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2025arXiv250710307B/abstract" class="pub-link">ADS</a>
+      </div>
+    </div>
+    <div class="pub-item reveal reveal-delay-2">
+      <div class="pub-meta">
+        <span class="tag tag-year">2026</span>
+        <span class="tag tag-journal">ApJ(Submitted)</span>
+      </div>
+      <div class="pub-title">HAWC Study on the Ultra-High-Energy Gamma-Ray Emissions from the Pulsar Wind Nebula G32.64+0.53</div>
+      <div class="pub-authors"> <em>R. Babu</em>, C.D. Rho, Y. Son, HAWC Collaboration et al.</div>
+      <div class="pub-links">
+        <a href="https://arxiv.org/abs/2603.19721v1" class="pub-link" >arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2026arXiv260319721A/abstract" class="pub-link">ADS</a>
+        <a href="https://arxiv.org/pdf/2603.19721v1" class="pub-link">PDF</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ── PRESENTATIONS ── -->
+<section id="presentations">
+  <p class="section-label reveal">Talks & Posters</p>
+  <h2 class="reveal reveal-delay-1">Presentations</h2>
+  <div class="section-divider reveal reveal-delay-2"></div>
+  <p class="section-intro reveal reveal-delay-2">Selected talks and invited lectures.</p>
+
+  <div class="pres-grid">
+    <div class="pres-card reveal">
+      <div class="pres-thumb"><img src="images/TurkeyWS.jpg" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
+      <div class="pres-body">
+        <h3>Multi-messenger Astrophysics with Neutrinos</h3>
+        <p>TÜBİTAK TBAE (Research Institute for Fundamental Sciences), Türkiye, Feb 2026</p>
+        <p><a href="https://www.youtube.com/watch?v=hW7bX9qqeeY" class="pres-type">Invited Talk (Click to see recording)</a></p>
+      </div>
+    </div>
+    <div class="pres-card reveal reveal-delay-1">
+      <div class="pres-thumb"><img src="images/wrightstate.jpg" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
+      <div class="pres-body">
+        <h3>Understanding the Enigmatic Particle Accelerators in the Universe with the Multi-Messenger
+observations</h3>
+        <p>Invited Seminar, Wright State University, Ohio USA, Oct 2025</p>
+        <p class="pres-type">Invited Seminar Talk</p>
+      </div>
+    </div>
+      <div class="pres-card reveal reveal-delay-2">
+      <div class="pres-thumb"><img src="images/lepton-photon.jpg" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
+      <div class="pres-body">
+        <h3>Multi-wavelength Analysis of Unassociated LHAASO TeV Sources using HAWC Observatory </h3>
+        <p>Lepton-Photon Conference 2024, Madison, WI, 2025</p>
+        <p class="pres-type">Contributed Talk</p>
+      </div>
+    </div>
+    <div class="pres-card reveal reveal-delay-2">
+      <div class="pres-thumb"><img src="images/tevpa.jpg" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
+      <div class="pres-body">
+        <h3>Search for Astrophysical Neutrinos from the 4FGL Galactic Plane Sources with the Pion-Bump Signature </h3>
+        <p>TeVPA 2024, Chicago, 2024</p>
+        <p class="pres-type">Contributed Talk</p>
+      </div>
+    </div>
+    <div class="pres-card reveal reveal-delay-3">
+      <div class="pres-thumb"><img src="images/fermisym.jpg" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
+      <div class="pres-body">
+        <h3>HAWC J1813-178 and its potential counterpart </h3>
+        <p>11th International Fermi Symposium, UMD College Park, MD, Sept 2024</p>
+        <p class="pres-type">Contributed Talk</p>
+      </div>
+    </div>
+    <div class="pres-card reveal reveal-delay-3">
+      <div class="pres-thumb"><img src="images/icrc.jpeg" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
+      <div class="pres-body">
+        <h3>High energy gamma ray emission from HESS J1809-193: Morphological and Spectral studies with HAWC </h3>
+        <p>ICRC, Nagoya, Japan, July 2023</p>
+        <p class="pres-type">Contributed Talk</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ── OUTREACH ── -->
+<section id="outreach">
+  <p class="section-label reveal">Public Engagement</p>
+  <h2 class="reveal reveal-delay-1">Outreach</h2>
+  <div class="section-divider reveal reveal-delay-2"></div>
+  <p class="section-intro reveal reveal-delay-2">Bringing the universe closer to general public so that they can appreciate the wonders of astrophysics, even if a tiny bit — through public talks and educational initiatives.</p>
+
+  <div class="outreach-grid">
+    <div class="outreach-card reveal">
+      <div class="outreach-img"><img src="images/msu.jpeg" alt="Icecube Sources" style="background-color: None; height: 120%; width: 120%; object-fit: contain;" ></div>
+      <div class="outreach-body">
+        <h3>Michigan State Science Festival</h3>
+        <p>Representing the High Energy Physics group at the Michigan State Science Festival to talk about the high energy particles coming from space and give a demo of how we can detect these astronomical particles on Earth using a cloud chamber.</p>
+      </div>
+    </div>
+    <div class="outreach-card reveal reveal-delay-1">
+      <div class="outreach-img"><img src="images/icecube-logo.png" alt="Icecube Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
+      <div class="outreach-body">
+        <h3>IceCube Masterclass</h3>
+        <p>Participating in the IceCube Masterclass to educate high school students about neutrino astrophysics at the South Pole using IceCube Observatory and provide hands-on experience of obsering particles in-lab.</p>
+      </div>
+    </div>
+    <div class="outreach-card reveal reveal-delay-2">
+      <div class="outreach-img"><img src="images/abrams.jpg" alt="abrams Sources" style="background-color: white; height: 100%; width: 100%; object-fit: contain;" ></div>
+      <div class="outreach-body">
+        <h3>Public Seminar at the MSU Planetarium</h3>
+        <p> Gave a public seminar at the MSU Planetarium to create awareness among the general public that astrophysics is more than just observing the universe through a telescope with visible light. Educated them on the evolution and the death of stars and the high-energy observations of what remains after.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ── CODES ── -->
+<section id="codes">
+  <p class="section-label reveal">Open Source</p>
+  <h2 class="reveal reveal-delay-1">Codes & Software</h2>
+  <div class="section-divider reveal reveal-delay-2"></div>
+  <p class="section-intro reveal reveal-delay-2">Public repositories and tools developed for astrophysics data analysis.</p>
+
+  <div class="code-list">
+    <div class="code-card reveal">
+      <div class="code-icon">🧠</div>
+      <div class="code-body">
+        <h3>[repo-name]</h3>
+        <p>Brief description of the code. [e.g. Hybrid GNN + PCA classifier for tau/electron neutrino discrimination in IceCube events. Includes SHAP-based feature importance analysis.]</p>
+        <div class="code-pills">
+          <span class="pill">Python</span>
+          <span class="pill">PyTorch</span>
+          <span class="pill">Graph Neural Network</span>
+        </div>
+        <div class="code-links">
+          <a href="#" class="pub-link">GitHub</a>
+          <a href="#" class="pub-link">Docs</a>
+        </div>
+      </div>
+    </div>
+    <div class="code-card reveal reveal-delay-1">
+      <div class="code-icon">⚙️</div>
+      <div class="code-body">
+        <h3>[repo-name]</h3>
+        <p>Brief description. [e.g. JAX-based neutrino event reconstruction pipeline (TPN). Optimized for GPU-parallel batch inference on H200 nodes.]</p>
+        <div class="code-pills">
+          <span class="pill">Python</span>
+          <span class="pill">JAX</span>
+          <span class="pill">GPU</span>
+        </div>
+        <div class="code-links">
+          <a href="#" class="pub-link">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="code-card reveal reveal-delay-2">
+      <div class="code-icon">📡</div>
+      <div class="code-body">
+        <h3>[repo-name]</h3>
+        <p>Brief description. [e.g. Multi-messenger source correlation pipeline for HAWC gamma-ray maps and IceCube neutrino event lists.]</p>
+        <div class="code-pills">
+          <span class="pill">Python</span>
+          <span class="pill">Astropy</span>
+          <span class="pill">HEALPix</span>
+        </div>
+        <div class="code-links">
+          <a href="#" class="pub-link">GitHub</a>
+          <a href="#" class="pub-link">arXiv</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="about-layout">
+    <div class="about-photo reveal">
+      <div class="about-photo-frame">
+        <!-- Replace with: <img src="your-photo.jpg" alt="Dr. [Your Name]" /> -->
+         <img src="images/ProfilePic.jpeg" alt="abrams Sources" style="background-color: None; height: 100%; width: 100%; object-fit: contain;" >
+      </div>
+      <div class="about-links">
+        <a href="mailto:baburish@msu.edu" class="btn btn-ghost" style="font-size:0.78rem;">Email</a>
+        <a href="docs/CV.pdf" class="btn btn-ghost" style="font-size:0.78rem;" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
+        <a href="https://github.com/rishibbdb" class="btn btn-ghost" style="font-size:0.78rem;">GitHub</a>
+        <a href="https://orcid.org/0000-0002-5529-6780" class="btn btn-ghost" style="font-size:0.78rem;">ORCID</a>
+      </div>
+    </div>
+    <div class="about-content">
+      <p class="section-label reveal">About</p>
+      <h2 class="reveal reveal-delay-1">Hello, I'm<br><span style="color:var(--blue)">Rishi Babu</span></h2>
+      <div class="section-divider reveal reveal-delay-2"></div>
+      <p class="reveal reveal-delay-2">[Short bio paragraph. E.g. I am a researcher in high-energy astrophysics at Michigan Technological University, where I study the most energetic phenomena in the universe — from neutron-star X-ray binaries as cosmic-ray accelerators to high-energy neutrino emission detected by IceCube.]</p>
+      <p class="reveal reveal-delay-3">[Second paragraph. E.g. My work sits at the intersection of multi-messenger astronomy and machine learning. I develop novel reconstruction algorithms and source identification pipelines, combining gamma-ray, neutrino, and X-ray observations to uncover hadronic acceleration mechanisms.]</p>
+      <p class="reveal reveal-delay-4">[Third paragraph, more personal. E.g. Outside of research, I'm passionate about science communication and mentoring early-career researchers. I believe that open, reproducible science is essential to the field.]</p>
+
+      <div class="affil-list reveal reveal-delay-4">
+        <div class="affil-item"><div class="affil-dot"></div>[Position] · [Institution]</div>
+        <div class="affil-item"><div class="affil-dot"></div>[Collaboration / Group Membership]</div>
+        <div class="affil-item"><div class="affil-dot"></div">Ph.D., [Field] · [University], [Year]</div>
+        <div class="affil-item"><div class="affil-dot"></div">B.Sc., [Field] · [University], [Year]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2025 <a href="#home">Dr. [Your Name]</a> &nbsp;·&nbsp; Built with HTML/CSS/JS &nbsp;·&nbsp;
+  <a href="mailto:you@university.edu">you@university.edu</a></p>
+</footer>
+
+<!-- ── SCRIPTS ── -->
+<script>
+/* ─── Star Field Canvas ─── */
+(function() {
+  const canvas = document.getElementById('star-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [], W, H, scrollY = 0;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function initStars(n) {
+    stars = [];
+    for (let i = 0; i < n; i++) {
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.4 + 0.2,
+        alpha: Math.random() * 0.7 + 0.15,
+        speed: Math.random() * 0.3 + 0.05,
+        twinkleOffset: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  let t = 0;
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    t += 0.008;
+    const parallax = scrollY * 0.18;
+
+    stars.forEach(s => {
+      const twinkle = 0.5 + 0.5 * Math.sin(t * s.speed * 4 + s.twinkleOffset);
+      ctx.beginPath();
+      ctx.arc(s.x, (s.y - parallax * s.speed * 3 + H) % H, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(200, 220, 255, ${s.alpha * twinkle})`;
+      ctx.fill();
+    });
+
+    // subtle nebula blobs
+    const grad1 = ctx.createRadialGradient(W * 0.2, H * 0.3, 0, W * 0.2, H * 0.3, W * 0.35);
+    grad1.addColorStop(0, 'rgba(80,100,200,0.04)');
+    grad1.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad1; ctx.fillRect(0,0,W,H);
+
+    const grad2 = ctx.createRadialGradient(W * 0.8, H * 0.6, 0, W * 0.8, H * 0.6, W * 0.3);
+    grad2.addColorStop(0, 'rgba(120,60,180,0.05)');
+    grad2.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad2; ctx.fillRect(0,0,W,H);
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('scroll', () => { scrollY = window.scrollY; });
+  window.addEventListener('resize', () => { resize(); initStars(220); });
+  resize();
+  initStars(220);
+  draw();
+})();
+
+/* ─── Intersection Observer for reveal ─── */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+
+/* ─── Active nav link on scroll ─── */
+const sections = document.querySelectorAll('section[id], nav');
+const navLinks  = document.querySelectorAll('.nav-links a');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+
+document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
+</script>
+</body>
+</html>
