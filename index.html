@@ -580,6 +580,71 @@
       background: var(--blue); flex-shrink: 0; margin-top: 0.55rem;
     }
 
+      /* ── NASA BADGE BLOCK ── */
+  .badge-block { max-width: 680px; }
+  .badge-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 8px 8px 0;
+    padding: 1.6rem;
+  }
+  .badge-img {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 12px rgba(255,179,71,0.2));
+  }
+  .badge-right { flex: 1; min-width: 0; }
+  .badge-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+  .badge-issuer {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.6rem;
+  }
+  .badge-desc {
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin-bottom: 0.9rem;
+    line-height: 1.6;
+  }
+  .badge-links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+  @media (max-width: 500px) {
+    .badge-card { flex-direction: column; align-items: center; text-align: center; }
+    .badge-links { justify-content: center; }
+  }
+
+  .research-image { position: relative; }
+  .research-image-overlay {
+    position: absolute; inset: 0;
+    background: rgba(8,12,20,0.55);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.4rem;
+    color: var(--blue);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 6px;
+  }
+  .research-image:hover .research-image-overlay { opacity: 1; }
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
@@ -710,7 +775,7 @@
     <h1>Dr. <span>Rishi Babu</span></h1>
     <p class="hero-sub">
       Postdoctoral Researcher · <strong>Michigan State University</strong><br>
-      Trying to understand the most energetic phenomena in the universe, one theory at a time, one object at a time and one code at a time. 
+      Trying to understand the most energetic phenomena in the universe, one theory at a time, one object at a time and one code at a time.
     </p>
     <div class="hero-cta">
       <a href="#publications" class="btn btn-primary">View Publications</a>
@@ -751,6 +816,18 @@
       <h3>Image Processing in Astrophysics</h3>
       <p>Exploring computer vision techniques for source detection and seeding algorithms applied to gamma-ray sky maps.</p>
     </div>
+    <div class="research-card reveal reveal-delay-4">
+  <div class="research-image" style="cursor:pointer;" onclick="openLightbox('images/swgo.png', 'SWGO Tank Prototyping at the HAWC Observatory Site, Mexico, 2023')">
+    <img src="images/swgo.png" alt="SWGO site visit" />
+    <div class="research-image-overlay">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      Click to expand
+    </div>
+  </div>
+  <h3>PMT Calibrations & Hardware Development</h3>
+  <p>Developed the calibration procedure and software for PMTs in HAWC Outrigger Arrays. Photo taken in 2023 during a visit to the HAWC Observatory site in Mexico for Southern Wide Field Observatory (SWGO) tank prototyping. </p>
+  <p> (Click to expand)</p>
+</div>
   </div>
 </section>
 
@@ -761,51 +838,25 @@
   <p class="section-label reveal">Output</p>
   <h2 class="reveal reveal-delay-1">Publications</h2>
   <div class="section-divider reveal reveal-delay-2"></div>
-  <p class="section-intro reveal reveal-delay-2">Peer-reviewed articles, preprints, and proceedings. Full list on <a href="https://arxiv.org/search/advanced?advanced=&terms-0-operator=AND&terms-0-term=Babu%2C+R&terms-0-field=author&classification-physics=y&classification-physics_archives=all&classification-include_cross_list=include&date-filter_by=all_dates&date-year=&date-from_date=&date-to_date=&date-date_type=submitted_date&abstracts=show&size=50&order=-announced_date_first" style="color:var(--blue)" target="_blank">arXiv</a> and <a href="https://ui.adsabs.harvard.edu/search/filter_database_fq_database=AND&filter_database_fq_database=database%3A%22astronomy%22&fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq_database=(database%3A%22astronomy%22)&p_=0&q=author%3A%22Babu%2C%20R.%22&sort=date%20desc%2C%20bibcode%20desc" style="color:var(--blue)" target="_blank">NASA/ADS</a>.</p>
+  <p class="section-intro reveal reveal-delay-2">Highlighting a few selected peer-reviewed articles, preprints, and proceedings. If you want to check out the full list of research work, you can find it on <a href="https://arxiv.org/search/advanced?advanced=&terms-0-operator=AND&terms-0-term=Babu%2C+R&terms-0-field=author&classification-physics=y&classification-physics_archives=all&classification-include_cross_list=include&date-filter_by=all_dates&date-year=&date-from_date=&date-to_date=&date-date_type=submitted_date&abstracts=show&size=50&order=-announced_date_first" style="color:var(--blue)" target="_blank">arXiv</a> and <a href="https://ui.adsabs.harvard.edu/search/filter_database_fq_database=AND&filter_database_fq_database=database%3A%22astronomy%22&fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq_database=(database%3A%22astronomy%22)&p_=0&q=author%3A%22Babu%2C%20R.%22&sort=date%20desc%2C%20bibcode%20desc" style="color:var(--blue)" target="_blank">NASA/ADS</a>.</p>
 
   <div class="pub-list">
-    <div class="pub-item reveal">
-      <div class="pub-meta">
-        <span class="tag tag-year">2026</span>
-        <span class="tag tag-journal">ApJ (Submitted)</span>
-        <span class="tag tag-first">First Author</span>
-      </div>
-      <div class="pub-title">HAWC Study on the Ultra-High-Energy Gamma-Ray Emissions from the Pulsar Wind Nebula G32.64+0.53</div>
-      <div class="pub-authors"><em>R. Babu</em>, C.D. Rho, Y. Son, HAWC Collaboration et al.</div>
-      <div class="pub-links">
-        <a href="https://arxiv.org/abs/2603.19721v1" class="pub-link" target="_blank">arXiv</a>
-        <a href="https://ui.adsabs.harvard.edu/abs/2026arXiv260319721A/abstract" class="pub-link" target="_blank">ADS</a>
-        <a href="https://arxiv.org/pdf/2603.19721v1" class="pub-link" target="_blank">PDF</a>
-      </div>
-    </div>
-    <div class="pub-item reveal reveal-delay-1">
-      <div class="pub-meta">
-        <span class="tag tag-year">2025</span>
-        <span class="tag tag-journal">ICRC Proceeding</span>
-        <span class="tag tag-first">First Author</span>
-      </div>
-      <div class="pub-title">Improving Gamma-ray Source Search with Image Processing</div>
-      <div class="pub-authors"><em>R. Babu</em>, P. Wentworth, I. Herzog, D. Salazar, M. Nisa, HAWC Collaboration et al.</div>
-      <div class="pub-links">
-        <a href="https://arxiv.org/abs/2507.10307v1" class="pub-link" target="_blank">arXiv</a>
-        <a href="https://ui.adsabs.harvard.edu/abs/2025arXiv250710307B/abstract" class="pub-link" target="_blank">ADS</a>
-      </div>
-    </div>
-    <div class="pub-item reveal reveal-delay-2">
+    <div class="pub-item reveal reveal-delay-3">
       <div class="pub-meta">
         <span class="tag tag-year">2024</span>
-        <span class="tag tag-journal">Nature</span>
-        <span class="tag tag-first">Corresponding Author</span>
+        <span class="tag tag-journal">ApJ Letters</span>
+        <span class="tag tag-first">First Author</span>
       </div>
-      <div class="pub-title">Ultra-high-energy gamma-ray bubble around microquasar V4641 Sgr</div>
-      <div class="pub-authors"><em>HAWC Collaboration</em>, et al.</div>
+      <div class="pub-title">Observation of the Galactic Center PeVatron Beyond 100 TeV with HAWC</div>
+      <div class="pub-authors">S. Yun, D. Huang, <em>R. Babu</em>, K.L. Fan, HAWC Collaboration et al.</div>
       <div class="pub-links">
-        <a href="https://www.nature.com/articles/s41586-024-07995-9" class="pub-link" target="_blank">Nature</a>
-        <a href="https://arxiv.org/abs/2410.16117" class="pub-link" target="_blank">arXiv</a>
-        <a href="https://ui.adsabs.harvard.edu/abs/2024Natur.634..557A/abstract" class="pub-link" target="_blank">ADS</a>
+        <a href="https://arxiv.org/abs/2407.03682" class="pub-link" target="_blank">arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2024ApJ...973L..34A/abstract" class="pub-link" target="_blank">ADS</a>
+        <a href="https://arxiv.org/pdf/2407.03682" class="pub-link" target="_blank">PDF</a>
       </div>
-    </div>
-    <div class="pub-item reveal reveal-delay-2">
+  </div>
+
+  <div class="pub-item reveal reveal-delay-2">
       <div class="pub-meta">
         <span class="tag tag-year">2024</span>
         <span class="tag tag-journal">ApJ</span>
@@ -818,20 +869,58 @@
         <a href="https://ui.adsabs.harvard.edu/abs/2024ApJ...972...21A/abstract" class="pub-link" target="_blank">ADS</a>
         <a href="https://arxiv.org/pdf/2407.08849" class="pub-link" target="_blank">PDF</a>
       </div>
-    </div>
-    <div class="pub-item reveal reveal-delay-3">
+  </div>
+
+  <div class="pub-item reveal reveal-delay-2">
       <div class="pub-meta">
         <span class="tag tag-year">2024</span>
-        <span class="tag tag-journal">ApJ Letters</span>
+        <span class="tag tag-journal">Nature</span>
+        <span class="tag tag-first">Contributing Author</span>
       </div>
-      <div class="pub-title">Observation of the Galactic Center PeVatron Beyond 100 TeV with HAWC</div>
-      <div class="pub-authors">S. Yun, D. Huang, <em>R. Babu</em>, K.L. Fan, HAWC Collaboration et al.</div>
+      <div class="pub-title">Ultra-high-energy gamma-ray bubble around microquasar V4641 Sgr</div>
+      <div class="pub-authors"><em>HAWC Collaboration</em>, et al.</div>
       <div class="pub-links">
-        <a href="https://arxiv.org/abs/2407.03682" class="pub-link" target="_blank">arXiv</a>
-        <a href="https://ui.adsabs.harvard.edu/abs/2024ApJ...973L..34A/abstract" class="pub-link" target="_blank">ADS</a>
-        <a href="https://arxiv.org/pdf/2407.03682" class="pub-link" target="_blank">PDF</a>
+        <a href="https://www.nature.com/articles/s41586-024-07995-9" class="pub-link" target="_blank">Nature</a>
+        <a href="https://arxiv.org/abs/2410.16117" class="pub-link" target="_blank">arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2024Natur.634..557A/abstract" class="pub-link" target="_blank">ADS</a>
       </div>
-    </div>
+  </div>
+
+  <div class="pub-item reveal reveal-delay-1">
+      <div class="pub-meta">
+        <span class="tag tag-year">2025</span>
+        <span class="tag tag-journal">ICRC Proceeding</span>
+        <span class="tag tag-first">First Author</span>
+      </div>
+      <div class="pub-title">Improving Gamma-ray Source Search with Image Processing</div>
+      <div class="pub-authors"><em>R. Babu</em>, P. Wentworth, I. Herzog, D. Salazar, M. Nisa, HAWC Collaboration et al.</div>
+      <div class="pub-links">
+        <a href="https://arxiv.org/abs/2507.10307v1" class="pub-link" target="_blank">arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2025arXiv250710307B/abstract" class="pub-link" target="_blank">ADS</a>
+      </div>
+  </div>
+
+  <div class="pub-item reveal">
+      <div class="pub-meta">
+        <span class="tag tag-year">2026</span>
+        <span class="tag tag-journal">ApJ (Submitted)</span>
+        <span class="tag tag-first">First Author</span>
+      </div>
+      <div class="pub-title">HAWC Study on the Ultra-High-Energy Gamma-Ray Emissions from the Pulsar Wind Nebula G32.64+0.53</div>
+      <div class="pub-authors"><em>R. Babu</em>, C.D. Rho, Y. Son, HAWC Collaboration et al.</div>
+      <div class="pub-links">
+        <a href="https://arxiv.org/abs/2603.19721v1" class="pub-link" target="_blank">arXiv</a>
+        <a href="https://ui.adsabs.harvard.edu/abs/2026arXiv260319721A/abstract" class="pub-link" target="_blank">ADS</a>
+        <a href="https://arxiv.org/pdf/2603.19721v1" class="pub-link" target="_blank">PDF</a>
+      </div>
+  </div>
+
+
+
+
+
+
+
   </div>
 </section>
 
@@ -1016,7 +1105,6 @@
         </div>
       </div>
     </div>
-
     <!-- HAWC Data Release -->
     <div class="code-card reveal reveal-delay-3">
       <div class="code-body">
@@ -1032,6 +1120,30 @@
     </div>
 
   </div>
+  <!-- ── NASA OPEN SCIENCE BADGE ── -->
+<div class="badge-block reveal" style="margin-top: 3rem;">
+  <p class="section-label" style="margin-bottom: 1rem;">Recognition</p>
+  <div class="badge-card">
+    <div class="badge-left">
+      <img src="images/nasa-open-science-101.png" alt="NASA Open Science Badge" class="badge-img" />
+    </div>
+    <div class="badge-right">
+      <div class="badge-title">NASA Open Science Certification</div>
+      <div class="badge-issuer">Issued by NASA Open Science</div>
+      <p class="badge-desc">Awarded for completing NASA's Open Science curriculum 101 with fellowship grant from MSU's Institute for Cyber-Enabled Research for covering open data, open software, open results, and reproducible research practices in astrophysics.</p>
+      <div class="badge-links">
+        <a href="docs/Certificate.pdf" class="pub-link" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-2px; margin-right:4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Certificate (PDF)
+        </a>
+        <a href="https://www.credly.com/badges/546f390f-577d-4017-b2aa-3ac886d3e102/public_url" class="pub-link" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-2px; margin-right:4px;"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg>
+          Verify on Credly
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 </section>
 
 <!-- ── LIGHTBOX ── -->
@@ -1062,9 +1174,14 @@
       <p class="section-label reveal">About</p>
       <h2 class="reveal reveal-delay-1">Hello, I'm<br><span style="color:var(--blue)">Rishi Babu</span></h2>
       <div class="section-divider reveal reveal-delay-2"></div>
-      <p class="reveal reveal-delay-2">I am a postdoctoral researcher in high-energy astrophysics at Michigan State University, studying the most energetic phenomena in the universe — from neutron-star X-ray binaries as cosmic-ray accelerators to high-energy neutrino emission detected by IceCube.</p>
-      <p class="reveal reveal-delay-3">My work sits at the intersection of multi-messenger astronomy and machine learning. I develop novel reconstruction algorithms and source identification pipelines, combining gamma-ray, neutrino, and X-ray observations to uncover hadronic acceleration mechanisms.</p>
-      <p class="reveal reveal-delay-4">Outside of research, I'm passionate about science communication and mentoring early-career researchers. I'm married to wonderful lady Adarsha who is keeping me grounded and motivated to pursue my goals.</p>
+      <p class="reveal reveal-delay-2">I'm Rishi and I am currently a postdoctoral resaercher at Michigan State University working on the HAWC gamma-ray observatory and the IceCube Neutrino Observatory. I currently serve as the Data Analysis Coordinator for the HAWC Collaboration, providing scientific leadership and coordinating analysis efforts across the collaboration. I also serve as the lead for the Public Data Release for HAWC, overseeing the development and release of high-level data products to the public. </p>
+      <p class="reveal reveal-delay-3">My research focuses on multi-messenger astrophysics, particularly studying high-energy phenomena in our galaxy through gamma-ray and neutrino observations. I develop advanced data analysis softwares, including machine learning algorithms, to identify and characterize cosmic accelerators from large scale surveys for the HAWC collaboration. I also work on IceCube Collaboration, contributing to the developement of advanced neutrino source detection techniques using image processing techniques. I'm also the lead on the neutrino track reconstruction group using machine learning algorithms providing scalable and efficient techniques using JAX. I am mentoring several undergraduate and graduate students in their research projects, and am passionate about mentoring early-career researchers and promoting diversity and inclusion in STEM fields.</p>
+      <p class="reveal reveal-delay-4">I received my Ph.D and Master's degrees from Michigan Technological University, where I was advised by Petra Huentemeyer, spokesperson of the HAWC Collaboration and the SWGO Collaboration. My PhD research focused on identifying PeVatron accelerators in our galaxy using gamma-ray observations from HAWC. I developed the charge calibration software for the HAWC outrigger array which was deployed in 2019. I also serve as one of the 10 experts on observatory control, managing the data acquisition for the HAWC experiment.</p>
+      <p class="reveal reveal-delay-5">I have a Bachelors degree in Engineering Physics from the National Institute of Technology, Calicut, India. During my during my undergraduate studies, I have worked on several different projects ranging from involvement in development of robotics for the Asia competition Robocon, and development and studies of micro-magnetic semiconductor materials. I had an inkling for research and wanted to pursue a career in scientific research, which led me to apply for graduate school in the US.</p>
+      <p class="reveal reveal-delay-6">Apart from research, I am passionate about travel and exploring new cultures. I have been fortunate to travel to different countries and it has a become a major part of my life after I met my wonderful wife Adarsha. If you dont see me posting pictures about travels, I am mostly in the kitchen experimenting with new recipes and cuisines. </p>
+      <p class="reveal reveal-delay-7">Fun and a rarely known fact about me: I was part of the  <a href="https://michigantechhuskies.com/sports/esports/roster/2022" style="color:var(--blue)" target="_blank">Michigan Tech Varisty Esports Team</a>  where I competed in collegiate Rainbow Six Siege tournaments. I am a huge fan of video games that drive creativity and story telling.</p>
+      <p class="reveal reveal-delay-8">For outreach, I have given several public talks and workshops at Michigan State University including a public seminar at the MSU Planetarium, and have been a regular participant in the Michigan State Science Festival where I represent the High Energy Physics group to talk about high-energy particles from space, with a live cloud chamber demo of cosmic ray detection.  I have also been involved in mentoring high school students through the IceCube Masterclass program, where I provide hands-on experience with particle detection in a laboratory setting.</p>
+      <p class="reveal reveal-delay-9">I am also a proud mentor and advocate for diversity and inclusion in STEM fields. I try to actively being involved in initiatives to promote equity, diversity, and inclusion in academia and share my experiences. During my PhD, I had observed that the retention of underrepresented and minority students in the physics department is a significant challenge. Therefore, I made a decision to commit myself to mentoring and supporting students from underrepresented backgrounds in physics so that they can have a more positive and inclusive experience in academia.</p>
       <div class="affil-list reveal reveal-delay-4">
         <div class="affil-item"><div class="affil-dot"></div><span>Postdoctoral Researcher · Michigan State University</span></div>
         <div class="affil-item"><div class="affil-dot"></div><span>HAWC Collaboration · IceCube Collaboration</span></div>
